@@ -34,6 +34,23 @@ namespace FundooNotes.Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public bool Login(string email,string password)
+        {
+            try
+            {
+                  string encodedPassword = encryptPassword(password);
+                    var loginUser = this.userContext.Users.Where(x => x.EmailId == email && x.Password == encodedPassword).FirstOrDefault();
+                    if (loginUser != null)
+                    {
+                        return true;
+                    }
+                
+                return false;
+            }catch(ArgumentNullException ex)
+            {
+                throw new ArgumentNullException(ex.Message);
+            }
+        }
         /// <summary>
         /// Encryption using Base64
         /// </summary>

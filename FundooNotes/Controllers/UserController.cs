@@ -40,5 +40,30 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+        /// <summary>
+        /// Performs login and returns the status code as IActionResult
+        /// </summary>
+        /// <param name="loginDetails"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/login")]
+        public IActionResult Login([FromBody] LoginModel loginDetails)
+        {
+            try
+            {
+                bool result = this.userManager.Login(loginDetails);
+                if(result == true)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successfull !" });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Login Unsuccessfull ! Email or Password does not match" });
+                }
+            }catch(Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }
