@@ -17,6 +17,8 @@ namespace FundooNotes.Controllers
         {
             this.userManager = userManager;
         }
+        //Route checks the request url and performs the Register function
+        //Below function returns the status code as IAction Result
         [HttpPost]
         [Route("api/register")]
         public IActionResult Register([FromBody] RegisterModel userData)

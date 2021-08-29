@@ -10,6 +10,7 @@ namespace Repository.Context
 {
     public class UserContext : DbContext
     {
+        //Base sends the options to the base class DbContext
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
 

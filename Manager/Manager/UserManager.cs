@@ -11,10 +11,12 @@ namespace FundooNotes.Managers.Manager
     public class UserManager : IUserManager
     {
         public readonly IUserRepository userRepository;
+        //Initializes on runtime
         public UserManager(IUserRepository userRepository)
         {
             this.userRepository = userRepository;
         }
+        //Checks whether the data is successfully added to the repository 
         public bool Register(RegisterModel userData)
         {
             try
