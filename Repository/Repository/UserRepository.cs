@@ -15,7 +15,7 @@ namespace FundooNotes.Repository.Repository
         {
             this.userContext = userContext;
         }
-        //Adds the user data to the data 
+        //Adds the user data to the database
         public bool Register(RegisterModel userData)
         {
             try{
