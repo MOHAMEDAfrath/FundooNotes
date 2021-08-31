@@ -134,11 +134,20 @@ namespace FundooNotes
         /// <returns>Returns true if the message in the queue is sent successfully</returns>
         public bool ReceiveFromMSMQ(string email)
         {
-            return true;
+            var receiveQueue = new MessageQueue(@".\Private$\MyQueue");
+            var receiveMsg = receiveQueue.Receive();
+            receiveMsg.Formatter = new BinaryMessageFormatter();
+            string linkToBeSent = receiveMsg.Body.ToString();
+            if (this.SendEmail(email, linkToBeSent))
+            {
+                return true;
+            }
+
+            return false;
         }
-            
+
         /// <summary>
-        /// Encryption using Base64
+        /// Encryption using Base64   
         /// </summary>
         /// <param name="password">string password</param>
         /// <returns>encoded password</returns>    
@@ -147,6 +156,17 @@ namespace FundooNotes
             var plainTextBytes = Encoding.UTF8.GetBytes(password);
             string encodedText = Convert.ToBase64String(plainTextBytes);
             return encodedText;
+        }
+
+        /// <summary>
+        /// Send the link for the forgot password to the user
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <param name="message">string message</param>
+        /// <returns>Returns true if the message in the queue is sent successfully</returns>
+        private bool SendEmail(string email, string message)
+        {
+            return true;
         }
     }
 }
