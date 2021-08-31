@@ -35,5 +35,7 @@ namespace FundooNotes.Managers.Interface
         /// <param name="email">string email</param>
         /// <returns>Returns true if mail sent successful else false</returns>
         bool ForgotPassword(string email);
+
+        bool ResetPassword(ResetModel userData);
     }
 }

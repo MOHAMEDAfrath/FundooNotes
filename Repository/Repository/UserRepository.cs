@@ -9,10 +9,13 @@ namespace FundooNotes
 {
     using System;
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
     using System.Text;
     using Experimental.System.Messaging;
     using FundooNotes.Models;
     using FundooNotes.Repository.Interface;
+    using global::Models;
     using global::Repository.Context;
 
     /// <summary>
@@ -166,7 +169,41 @@ namespace FundooNotes
         /// <returns>Returns true if the message in the queue is sent successfully</returns>
         private bool SendEmail(string email, string message)
         {
+            MailMessage mailMessage = new MailMessage();
+            SmtpClient smtp = new SmtpClient();
+            mailMessage.From = new MailAddress("fundoo.notes2021@gmail.com");
+            mailMessage.To.Add(new MailAddress(email));
+            mailMessage.Subject = "Link to reset your password for Fundoo notes";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = message;
+            smtp.Port = 587;
+            smtp.Host = "smtp.gmail.com";
+            smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential("fundoo.notes2021@gmail.com", "fundoo2021");
+            smtp.Send(mailMessage);
             return true;
+        }
+
+        public bool ResetPassword(ResetModel userData)
+        {
+            try
+            {
+                if (userData != null)
+                {
+           
+                    var user = this.UserContext.Users.Where(x=>x.EmailId == userData.EmailId).FirstOrDefault();
+                    user.Password = this.EncryptPassword(userData.Password);
+                    this.UserContext.Users.Update(user);
+                    this.UserContext.SaveChanges();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

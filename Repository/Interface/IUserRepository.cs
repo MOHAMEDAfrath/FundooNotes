@@ -7,6 +7,7 @@
 namespace FundooNotes.Repository.Interface
 {
     using FundooNotes.Models;
+    using global::Models;
 
     /// <summary>
     /// Interface UserRepository
@@ -34,5 +35,7 @@ namespace FundooNotes.Repository.Interface
         /// <param name="email">string email</param>
         /// <returns>returns a boolean value</returns>
         bool ForgotPassword(string email);
+
+        bool ResetPassword(ResetModel userData);
     }
 }

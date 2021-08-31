@@ -82,5 +82,17 @@ namespace FundooNotes.Managers.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        public bool ResetPassword(ResetModel userData)
+        {
+            try
+            {
+                return this.UserRepository.ResetPassword(userData);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
