@@ -1,15 +1,38 @@
-﻿using FundooNotes.Models;
-using Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IUserRepository.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace FundooNotes.Repository.Interface
 {
+    using FundooNotes.Models;
+
+    /// <summary>
+    /// Interface UserRepository
+    /// </summary>
     public interface IUserRepository
     {
+        /// <summary>
+        /// Register Method
+        /// </summary>
+        /// <param name="registerModel">RegisterModel registerModel</param>
+        /// <returns>returns a boolean value</returns>
         bool Register(RegisterModel registerModel);
-        bool Login(string email,string password);
+
+        /// <summary>
+        /// Login Method
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <param name="password">string password</param>
+        /// <returns>returns a boolean value</returns>
+        bool Login(string email, string password);
+
+        /// <summary>
+        /// Forgot password method
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <returns>returns a boolean value</returns>
+        bool ForgotPassword(string email);
     }
 }
