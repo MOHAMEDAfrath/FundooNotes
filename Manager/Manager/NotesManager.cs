@@ -91,5 +91,17 @@ namespace Manager.Manager
             }
 
         }
+
+        public List<NotesModel> GetNotes(int UserId)
+        {
+            try
+            {
+                return this.notesRepository.GetNotes(UserId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -21,5 +21,6 @@ namespace Repository.Interface
 
         string DeleteAddToTrash(NotesModel notesModel);
 
+        List<NotesModel> GetNotes(int UserId);
     }
 }

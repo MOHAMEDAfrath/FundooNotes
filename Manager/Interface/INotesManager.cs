@@ -21,5 +21,7 @@ namespace Manager.Interface
 
         string DeleteAddToTrash(NotesModel notesModel);
 
+        List<NotesModel> GetNotes(int UserId);
+
     }
 }

@@ -198,6 +198,22 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
-       
+        public List<NotesModel> GetNotes(int UserId)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x =>x.UserId == UserId && x.Is_Trash == false).ToList();
+                if(exists.Count > 0)
+                {
+                    return exists;
+                }
+                return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }

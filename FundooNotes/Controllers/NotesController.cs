@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// 
@@ -154,6 +155,29 @@
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
+        }
+
+        [HttpPost]
+        [Route("api/getNote")]
+        public IActionResult GetNotes(int UserId)
+        {
+            try
+            {
+                List<NotesModel> notes = this.notesManager.GetNotes(UserId);
+                if (notes!=null)
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Retrieved notes successful! " });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "No Notes present"}) ;
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+
         }
     }
 }
