@@ -288,5 +288,30 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Delete data from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful delete</returns>
+        public string DeleteaNoteFromTrash(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == true).FirstOrDefault();
+                if (exists != null)
+                {
+                    this.UserContext.Notes.Remove(exists);
+                    this.UserContext.SaveChanges();
+                    return "Deleted Data Successfully";
+                }
+
+                return "No Data Present";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

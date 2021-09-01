@@ -36,7 +36,7 @@ namespace FundooNotes.Controllers
         /// Adds notes to the table
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns a string when data added successful</returns>
+        /// <returns>returns a IActionResult as status code when data added successful</returns>
         [HttpPost]
         [Route("api/addNote")]
         public IActionResult AddNotes([FromBody] NotesModel notesModel) 
@@ -63,7 +63,7 @@ namespace FundooNotes.Controllers
         /// Updates the title or notes
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns string on successful update of data for title or Note</returns>
+        /// <returns>returns IActionResult as status code on successful update of data for title or Note</returns>
         [HttpPut]
         [Route("api/UpdateNote")]
         public IActionResult UpdateTitleOrNote([FromBody] NotesModel notesModel)
@@ -90,7 +90,7 @@ namespace FundooNotes.Controllers
         /// Updates the color
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns string on successful update of color</returns>
+        /// <returns>returns IActionResult as status code on successful update of color</returns>
         [HttpPut]
         [Route("api/UpdateColor")]
         public IActionResult UpdateColor([FromBody] NotesModel notesModel)
@@ -117,7 +117,7 @@ namespace FundooNotes.Controllers
         /// Update Archive and returns a string
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns the string after updating archive</returns>
+        /// <returns>returns the IActionResult as status code after updating archive</returns>
         [HttpPut]
         [Route("api/archive")]
         public IActionResult UpdateArchive([FromBody] NotesModel notesModel)
@@ -144,7 +144,7 @@ namespace FundooNotes.Controllers
         /// Updates the boolean value for Pin
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns a string after updating pin</returns>
+        /// <returns>returns a IActionResult as status code after updating pin</returns>
         [HttpPut]
         [Route("api/Pin")]
         public IActionResult AddPin([FromBody] NotesModel notesModel)
@@ -171,7 +171,7 @@ namespace FundooNotes.Controllers
         /// Updates the boolean value for Trash
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns> returns string on adding notes to trash after deletion</returns>
+        /// <returns> returns IActionResult as status code on adding notes to trash after deletion</returns>
         [HttpPut]
         [Route("api/Trash")]
         public IActionResult DeleteAddToTrash([FromBody] NotesModel notesModel)
@@ -198,7 +198,7 @@ namespace FundooNotes.Controllers
         /// Gets notes
         /// </summary>
         /// <param name="userId">integer UserId</param>
-        /// <returns>Returns a lit of retrieved notes</returns>
+        /// <returns>IActionResult as status code</returns>
         [HttpPost]
         [Route("api/getNote")]
         public IActionResult GetNotes(int userId)
@@ -222,10 +222,10 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Gets notes
+        /// Restore from trash
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
-        /// <returns>returns a string on successful restore</returns>
+        /// <returns>returns a IAction on successful restore</returns>
         [HttpPut]
         [Route("api/Trash/Restore")]
         public IActionResult RestoreFromTrash([FromBody] NotesModel notesModel)
@@ -234,6 +234,33 @@ namespace FundooNotes.Controllers
             {
                 string result = this.notesManager.RestoreFromTrash(notesModel);
                 if (result == "Removed from trash !")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Delete from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>IActionResult as Status Code</returns>
+        [HttpDelete]
+        [Route("api/Trash/Delete")]
+        public IActionResult DeleteaNoteFromTrash([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.DeleteaNoteFromTrash(notesModel);
+                if (result == "Deleted Data Successfully")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }

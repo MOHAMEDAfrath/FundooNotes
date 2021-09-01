@@ -69,5 +69,12 @@ namespace Repository.Interface
         /// <param name="notesModel">NotesModel notesModel</param>
         /// <returns>returns a string on successful restore</returns>
         string RestoreFromTrash(NotesModel notesModel);
+
+        /// <summary>
+        /// Delete data from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful delete</returns>
+        string DeleteaNoteFromTrash(NotesModel notesModel);
     }
 }

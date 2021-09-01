@@ -166,5 +166,22 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Delete data from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful delete</returns>
+        public string DeleteaNoteFromTrash(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.DeleteaNoteFromTrash(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
