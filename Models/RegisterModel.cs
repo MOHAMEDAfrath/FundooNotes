@@ -19,11 +19,12 @@ namespace FundooNotes.Models
         /// </summary>
         [Key]
         public int UserId { get; set; }
+        
         /// <summary>
         /// Gets or sets FirstName
         /// </summary>
         [Required]
-        [RegularExpression(@"^[A-Z]{1}[a-z]{2,}",ErrorMessage ="Invalid First Name")]
+        [RegularExpression(@"^[A-Z]{1}[a-z]{2,}", ErrorMessage = "Invalid First Name")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -44,7 +45,7 @@ namespace FundooNotes.Models
         /// Gets or sets Password
         /// </summary>
         [Required]
-        [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\]*[.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\][^.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\]*$).{8,}$",ErrorMessage ="Invalid Password")]
+        [RegularExpression(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=[^.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\]*[.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\][^.,:;'!@#$%^&*_+=|(){}[?\-\]\/\\]*$).{8,}$", ErrorMessage = "Invalid Password")]
         public string Password { get; set; }
     }
 }

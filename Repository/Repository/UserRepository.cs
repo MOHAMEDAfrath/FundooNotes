@@ -8,13 +8,17 @@
 namespace FundooNotes
 {
     using System;
+    using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Net;
     using System.Net.Mail;
+    using System.Security.Claims;
     using System.Text;
     using Experimental.System.Messaging;
     using FundooNotes.Models;
     using FundooNotes.Repository.Interface;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.IdentityModel.Tokens;
     using global::Models;
     using global::Repository.Context;
 
@@ -29,12 +33,19 @@ namespace FundooNotes
         public readonly UserContext UserContext;
 
         /// <summary>
+        /// IConfiguration object
+        /// </summary>
+        public readonly IConfiguration Configuration;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserRepository"/> class
         /// </summary>
         /// <param name="userContext">UserContext userContext</param>
-        public UserRepository(UserContext userContext)
+        /// <param name="configuration">IConfiguration configuration</param>
+        public UserRepository(UserContext userContext, IConfiguration configuration)
         {
             this.UserContext = userContext;
+            this.Configuration = configuration;
         }
         
         /// <summary>
@@ -59,6 +70,7 @@ namespace FundooNotes
 
                     return "Registraion Unsuccessfull !";
                 }
+
                 return "Email Already Exists! Please Login";
             }
             catch (ArgumentNullException ex)
@@ -80,8 +92,8 @@ namespace FundooNotes
                   string encodedPassword = this.EncryptPassword(password);
                     var loginUser = this.UserContext.Users.Where(x => x.EmailId == email && x.Password == encodedPassword).FirstOrDefault();
                     if (loginUser != null)
-                    {
-                        return loginUser.UserId+" , "+loginUser.FirstName+" , "+loginUser.LastName+" , "+loginUser.EmailId+" , "+loginUser.Password;
+                    { 
+                        return loginUser.UserId + " , " + loginUser.FirstName + " , " + loginUser.LastName + " , " + loginUser.EmailId + " , " + loginUser.Password;
                     }
                 
                 return "Login Failed ,Invalid Credentials !";
@@ -167,6 +179,58 @@ namespace FundooNotes
         }
 
         /// <summary>
+        /// Reset Password
+        /// </summary>
+        /// <param name="userData">ResetModel userData</param>
+        /// <returns>Returns true if the password is successfully reset</returns>
+        public bool ResetPassword(ResetModel userData)
+        {
+            try
+            {
+                if (userData != null)
+                {
+                    var user = this.UserContext.Users.Where(x => x.EmailId == userData.EmailId).FirstOrDefault();
+                    if (user != null)
+                    {
+                        user.Password = this.EncryptPassword(userData.Password);
+                        this.UserContext.Users.Update(user);
+                        this.UserContext.SaveChanges();
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generates tokens
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <returns>Returns the token when user logins</returns>
+        public string GenerateToken(string email)
+        { 
+            byte[] key = Convert.FromBase64String(this.Configuration["SecretKey"]);
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
+            SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] 
+                {
+                new Claim(ClaimTypes.Email, email)
+            }),
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature)
+            };
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
+            return handler.WriteToken(token);  
+        }
+
+        /// <summary>
         /// Send the link for the forgot password to the user
         /// </summary>
         /// <param name="email">string email</param>
@@ -187,31 +251,6 @@ namespace FundooNotes
             smtp.Credentials = new NetworkCredential("fundoo.notes2021@gmail.com", "fundoo2021");
             smtp.Send(mailMessage);
             return true;
-        }
-
-        public bool ResetPassword(ResetModel userData)
-        {
-            try
-            {
-                if (userData != null)
-                {
-           
-                    var user = this.UserContext.Users.Where(x=>x.EmailId == userData.EmailId).FirstOrDefault();
-                    if (user != null)
-                    {
-                        user.Password = this.EncryptPassword(userData.Password);
-                        this.UserContext.Users.Update(user);
-                        this.UserContext.SaveChanges();
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-            catch (ArgumentNullException ex)
-            {
-                throw new Exception(ex.Message);
-            }
         }
     }
 }

@@ -72,10 +72,10 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.userManager.Login(loginDetails);
-
+                string token = this.userManager.GenerateToken(loginDetails.EmailId);
                 if (result != "Login Failed ,Invalid Credentials !")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!",Data=result});
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!", Data = result + " , Token : " + token });
                 }
                 else
                 {
@@ -119,7 +119,7 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Resets the password
         /// </summary>
-        /// <param name="resetModel"></param>
+        /// <param name="resetModel">ResetModel resetModel</param>
         /// <returns>Below function returns the status code as IAction Result</returns>
         [HttpPut]
         [Route("api/resetPassword")]
@@ -143,6 +143,5 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
-
     }
 }

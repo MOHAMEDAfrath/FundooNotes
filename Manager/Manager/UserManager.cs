@@ -83,11 +83,33 @@ namespace FundooNotes.Managers.Manager
             }
         }
 
+        /// <summary>
+        /// Reset Password
+        /// </summary>
+        /// <param name="userData">ResetModel userData</param>
+        /// <returns>Returns true if the password is successfully reset</returns>
         public bool ResetPassword(ResetModel userData)
         {
             try
             {
                 return this.UserRepository.ResetPassword(userData);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Generates tokens
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <returns>Returns the token when user logins</returns>
+        public string GenerateToken(string email)
+        {
+            try
+            {
+                return this.UserRepository.GenerateToken(email);
             }
             catch (Exception ex)
             {

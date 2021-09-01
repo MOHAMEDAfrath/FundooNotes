@@ -37,5 +37,7 @@ namespace FundooNotes.Managers.Interface
         bool ForgotPassword(string email);
 
         bool ResetPassword(ResetModel userData);
+
+        string GenerateToken(string email);
     }
 }

@@ -36,6 +36,18 @@ namespace FundooNotes.Repository.Interface
         /// <returns>returns a boolean value</returns>
         bool ForgotPassword(string email);
 
+        /// <summary>
+        /// Reset Password
+        /// </summary>
+        /// <param name="userData">ResetModel userData</param>
+        /// <returns>Returns true if the password is successfully reset</returns>
         bool ResetPassword(ResetModel userData);
+
+        /// <summary>
+        /// Generates tokens
+        /// </summary>
+        /// <param name="email">string email</param>
+        /// <returns>Returns the token when user logins</returns>
+        string GenerateToken(string email);
     }
 }
