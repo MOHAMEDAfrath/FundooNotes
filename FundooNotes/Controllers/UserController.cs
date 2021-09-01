@@ -99,15 +99,15 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                bool result = this.userManager.ForgotPassword(email);
+                string result = this.userManager.ForgotPassword(email);
 
-                if (result == true)
+                if (result == "Mail Sent Successfully, Please check your mail !")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Please check your mail!" });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
                 else
                 {
-                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Email Not Sent" });
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)

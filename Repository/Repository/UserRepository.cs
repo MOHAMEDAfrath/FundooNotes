@@ -109,11 +109,23 @@ namespace FundooNotes
         /// </summary>
         /// <param name="email">string email</param>
         /// <returns>Returns true if mail sent successful else false</returns>
-        public bool ForgotPassword(string email)
+        public string ForgotPassword(string email)
         {
             try
             {
-                return this.SendToMSMQ(email, "Hello");
+                var exist = this.UserContext.Users.Where(x => x.EmailId == email).FirstOrDefault();
+                if (exist != null)
+                {
+                    if(this.SendToMSMQ(email, "Hello"))
+                    {
+                        return "Mail Sent Successfully, Please check your mail !";
+                    }
+                    return "Email Not Sent";
+                }
+                else
+                {
+                    return "Email not Exists ! Please Register ! ";
+                }
             }
             catch (ArgumentNullException ex)
             {
@@ -144,7 +156,12 @@ namespace FundooNotes
             message.Body = url;
             msqueue.Label = "url-Link";
             msqueue.Send(message);
-            return this.ReceiveFromMSMQ(email);
+            if (this.SendEmail(email))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -152,18 +169,14 @@ namespace FundooNotes
         /// </summary>
         /// <param name="email">string email</param>
         /// <returns>Returns true if the message in the queue is sent successfully</returns>
-        public bool ReceiveFromMSMQ(string email)
+        public string ReceiveFromMSMQ(string email)
         {
             var receiveQueue = new MessageQueue(@".\Private$\MyQueue");
             var receiveMsg = receiveQueue.Receive();
             receiveMsg.Formatter = new BinaryMessageFormatter();
             string linkToBeSent = receiveMsg.Body.ToString();
-            if (this.SendEmail(email, linkToBeSent))
-            {
-                return true;
-            }
-
-            return false;
+            return linkToBeSent;
+            
         }
 
         /// <summary>
@@ -236,8 +249,9 @@ namespace FundooNotes
         /// <param name="email">string email</param>
         /// <param name="message">string message</param>
         /// <returns>Returns true if the message in the queue is sent successfully</returns>
-        private bool SendEmail(string email, string message)
+        private bool SendEmail(string email)
         {
+            string message = this.ReceiveFromMSMQ(email);
             MailMessage mailMessage = new MailMessage();
             SmtpClient smtp = new SmtpClient();
             mailMessage.From = new MailAddress("fundoo.notes2021@gmail.com");

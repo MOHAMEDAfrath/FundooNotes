@@ -36,7 +36,7 @@ namespace FundooNotes.Managers.Manager
         /// Adds the user data to the database
         /// </summary>
         /// <param name="userData">RegisterModel userData</param>
-        /// <returns>Returns true if Register is successful</returns>
+        /// <returns>Returns string if Register is successful</returns>
         public string Register(RegisterModel userData)
         {
             try
@@ -53,7 +53,7 @@ namespace FundooNotes.Managers.Manager
         /// Login checks for the user in database and allows him to login
         /// </summary>
         /// <param name="loginDetails">LoginModel loginDetails</param>
-        /// <returns>returns true if login is successful</returns>
+        /// <returns>returns string if login is successful</returns>
         public string Login(LoginModel loginDetails)
         {
             try
@@ -70,8 +70,8 @@ namespace FundooNotes.Managers.Manager
         /// Forgot password method performs sending mail to user to reset their password
         /// </summary>
         /// <param name="email">string email</param>
-        /// <returns>Returns true if mail sent successful else false</returns>
-        public bool ForgotPassword(string email)
+        /// <returns>Returns a string value if email sent successfully</returns>
+        public string ForgotPassword(string email)
         {
             try
             {
