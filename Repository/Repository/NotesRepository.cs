@@ -142,5 +142,62 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string AddPin(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                if (exists != null)
+                {
+                    if (exists.Is_Pin == true)
+                    {
+                        exists.Is_Pin = false;
+                    }
+                    else
+                    {
+                        exists.Is_Pin = true;
+                    }
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    if (exists.Is_Pin == true)
+                    {
+                        return "Pinned Successfully !";
+                    }
+                    else
+                    {
+
+                        return "Removed from Pin";
+                    }
+
+                }
+                return "Note Not present! Add Note";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string DeleteAddToTrash(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash==false).FirstOrDefault();
+                if (exists != null)
+                {
+                    exists.Is_Trash = true;
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    return "Added to trash !";
+
+                }
+                return "Note Not present! Add Note";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+       
     }
 }

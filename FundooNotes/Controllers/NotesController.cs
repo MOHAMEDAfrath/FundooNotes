@@ -112,6 +112,48 @@
             }
         }
 
+        [HttpPut]
+        [Route("api/Pin")]
+        public IActionResult AddPin([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.AddPin(notesModel);
+                if (result == "Pinned Successfully !" || result == "Removed from Pin")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
 
+        [HttpPut]
+        [Route("api/Trash")]
+        public IActionResult DeleteAddToTrash([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.DeleteAddToTrash(notesModel);
+                if (result == "Added to trash !")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

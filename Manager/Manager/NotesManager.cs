@@ -38,7 +38,7 @@ namespace Manager.Manager
             {
                 throw new Exception(ex.Message);
             }
-       
+
         }
         public string UpdateColor(NotesModel notesModel)
         {
@@ -58,6 +58,32 @@ namespace Manager.Manager
             try
             {
                 return this.notesRepository.UpdateArchive(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public string AddPin(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.AddPin(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
+
+        public string DeleteAddToTrash(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.DeleteAddToTrash(notesModel);
             }
             catch (Exception ex)
             {

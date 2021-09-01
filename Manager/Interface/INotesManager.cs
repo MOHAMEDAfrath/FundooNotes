@@ -16,5 +16,10 @@ namespace Manager.Interface
         string UpdateColor(NotesModel notesModel);
 
         string UpdateArchive(NotesModel notesModel);
+
+        string AddPin(NotesModel notesModel);
+
+        string DeleteAddToTrash(NotesModel notesModel);
+
     }
 }
