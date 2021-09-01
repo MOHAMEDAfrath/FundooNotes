@@ -19,7 +19,7 @@ namespace FundooNotes.Repository.Interface
         /// </summary>
         /// <param name="registerModel">RegisterModel registerModel</param>
         /// <returns>returns a boolean value</returns>
-        bool Register(RegisterModel registerModel);
+        string Register(RegisterModel registerModel);
 
         /// <summary>
         /// Login Method
@@ -27,7 +27,7 @@ namespace FundooNotes.Repository.Interface
         /// <param name="email">string email</param>
         /// <param name="password">string password</param>
         /// <returns>returns a boolean value</returns>
-        bool Login(string email, string password);
+        string Login(string email, string password);
 
         /// <summary>
         /// Forgot password method

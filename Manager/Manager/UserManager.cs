@@ -37,7 +37,7 @@ namespace FundooNotes.Managers.Manager
         /// </summary>
         /// <param name="userData">RegisterModel userData</param>
         /// <returns>Returns true if Register is successful</returns>
-        public bool Register(RegisterModel userData)
+        public string Register(RegisterModel userData)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace FundooNotes.Managers.Manager
         /// </summary>
         /// <param name="loginDetails">LoginModel loginDetails</param>
         /// <returns>returns true if login is successful</returns>
-        public bool Login(LoginModel loginDetails)
+        public string Login(LoginModel loginDetails)
         {
             try
             {

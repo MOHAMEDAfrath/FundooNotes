@@ -42,19 +42,24 @@ namespace FundooNotes
         /// </summary>
         /// <param name="userData">RegisterModel userData</param>
         /// <returns>Returns true if Register is successful</returns>
-        public bool Register(RegisterModel userData)
+        public string Register(RegisterModel userData)
         {
             try
             {
-                if (userData != null)
+                var exist = this.UserContext.Users.Where(x => x.EmailId == userData.EmailId).FirstOrDefault();
+                if (exist == null)
                 {
-                    userData.Password = this.EncryptPassword(userData.Password);
-                    this.UserContext.Users.Add(userData);
-                    this.UserContext.SaveChanges();
-                    return true;
-                }
+                    if (userData != null)
+                    {
+                        userData.Password = this.EncryptPassword(userData.Password);
+                        this.UserContext.Users.Add(userData);
+                        this.UserContext.SaveChanges();
+                        return "Registration Successfull !";
+                    }
 
-                return false;
+                    return "Registraion Unsuccessfull !";
+                }
+                return "Email Already Exists! Please Login";
             }
             catch (ArgumentNullException ex)
             {
@@ -68,7 +73,7 @@ namespace FundooNotes
         /// <param name="email">string email</param>
         /// <param name="password">string password</param>
         /// <returns>returns true if login is successful</returns>
-        public bool Login(string email, string password)
+        public string Login(string email, string password)
         {
             try
             {
@@ -76,10 +81,10 @@ namespace FundooNotes
                     var loginUser = this.UserContext.Users.Where(x => x.EmailId == email && x.Password == encodedPassword).FirstOrDefault();
                     if (loginUser != null)
                     {
-                        return true;
+                        return loginUser.UserId+" , "+loginUser.FirstName+" , "+loginUser.LastName+" , "+loginUser.EmailId+" , "+loginUser.Password;
                     }
                 
-                return false;
+                return "Login Failed ,Invalid Credentials !";
             }
             catch (ArgumentNullException ex)
             {

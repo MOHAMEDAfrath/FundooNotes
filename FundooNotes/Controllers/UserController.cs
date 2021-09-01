@@ -43,15 +43,15 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                bool result = this.userManager.Register(userData);
+                string result = this.userManager.Register(userData);
 
-                if (result == true)
+                if (result == "Registration Successfull !")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Registration Successfull !" });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
                 else
                 {
-                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Registration Unsuccessfull !" });
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)
@@ -71,15 +71,15 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                bool result = this.userManager.Login(loginDetails);
+                string result = this.userManager.Login(loginDetails);
 
-                if (result == true)
+                if (result != "Login Failed ,Invalid Credentials !")
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successfull !" });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!",Data=result});
                 }
                 else
                 {
-                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Login Unsuccessfull ! Email or Password does not match" });
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)
