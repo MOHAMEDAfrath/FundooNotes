@@ -38,7 +38,7 @@ namespace FundooNotes.Controllers
         /// <param name="notesModel">NotesModel notesModel</param>
         /// <returns>returns a string when data added successful</returns>
         [HttpPost]
-        [Route("api/addorUpdateNote")]
+        [Route("api/addNote")]
         public IActionResult AddNotes([FromBody] NotesModel notesModel) 
         {
             try
@@ -213,6 +213,33 @@ namespace FundooNotes.Controllers
                 else
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "No Notes present" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Gets notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful restore</returns>
+        [HttpPut]
+        [Route("api/Trash/Restore")]
+        public IActionResult RestoreFromTrash([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.RestoreFromTrash(notesModel);
+                if (result == "Removed from trash !")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)

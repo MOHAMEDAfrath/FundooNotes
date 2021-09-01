@@ -149,5 +149,22 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Restore to home from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful restore</returns>
+        public string RestoreFromTrash(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.RestoreFromTrash(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -63,5 +63,12 @@ namespace Manager.Interface
         /// <param name="userId">integer UserId</param>
         /// <returns>Returns a lit of retrieved notes</returns>
         List<NotesModel> GetNotes(int userId);
+
+        /// <summary>
+        /// Restore to home from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful restore</returns>
+        string RestoreFromTrash(NotesModel notesModel);
     }
 }

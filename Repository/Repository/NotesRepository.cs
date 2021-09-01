@@ -262,5 +262,31 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Restore to home from trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string on successful restore</returns>
+        public string RestoreFromTrash(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == true).FirstOrDefault();
+                if (exists != null)
+                {
+                    exists.Is_Trash = false;
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    return "Removed from trash !";
+                }
+
+                return "Note not present in trash";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
