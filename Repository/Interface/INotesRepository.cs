@@ -14,5 +14,7 @@ namespace Repository.Interface
         string UpdateTitleOrNote(NotesModel notesModel);
 
         string UpdateColor(NotesModel notesModel);
+
+        string UpdateArchive(NotesModel notesModel);
     }
 }

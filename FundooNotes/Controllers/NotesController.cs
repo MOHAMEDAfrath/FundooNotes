@@ -90,5 +90,28 @@
             }
         }
 
+        [HttpPut]
+        [Route("api/archive")]
+        public IActionResult UpdateArchive([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.UpdateArchive(notesModel);
+                if (result == "Archived Successfully !" || result == "Removed from Archive")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+
     }
 }

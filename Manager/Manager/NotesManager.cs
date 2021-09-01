@@ -52,5 +52,18 @@ namespace Manager.Manager
             }
 
         }
+
+        public string UpdateArchive(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.UpdateArchive(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }
