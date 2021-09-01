@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ResetModel.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// Class ResetModel
     /// </summary>
     public class ResetModel
     {
-        
         /// <summary>
             /// Gets or sets EmailId
             /// </summary>
@@ -25,5 +26,4 @@ namespace Models
             [Required]
             public string Password { get; set; }
         }
-
     }

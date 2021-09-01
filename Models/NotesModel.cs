@@ -7,10 +7,10 @@
 
 namespace Models
 {
-    using FundooNotes.Models;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using FundooNotes.Models;
 
     /// <summary>
     /// NotesModel class
@@ -23,7 +23,7 @@ namespace Models
         public int UserId { get; set; }
 
         /// <summary>
-        /// For foreign key
+        /// Gets or sets foreign key
         /// </summary>
         [ForeignKey("UserId")]
         public RegisterModel register { get; set; }

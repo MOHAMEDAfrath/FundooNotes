@@ -1,15 +1,22 @@
-﻿using Models;
-using Repository.Context;
-using Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesRepository.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
 namespace Repository.Repository
 {
-    public class NotesRepository:INotesRepository
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Models;
+    using global::Repository.Context;
+    using global::Repository.Interface;
+
+    /// <summary>
+    /// class NotesRepository
+    /// </summary>
+    public class NotesRepository : INotesRepository
     {
         /// <summary>
         /// User Context Objects
@@ -25,6 +32,11 @@ namespace Repository.Repository
             this.UserContext = userContext;
         }
 
+        /// <summary>
+        /// Adds notes to the table
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string when data added successful</returns>
         public string AddNotes(NotesModel notesModel)
         {
             try
@@ -39,13 +51,18 @@ namespace Repository.Repository
                 {
                     return "Notes Not Added SuccessFully !";
                 }
-            
-            }catch(ArgumentNullException ex)
+            }
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Updates the title or notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful update of data for title or Note</returns>
         public string UpdateTitleOrNote(NotesModel notesModel)
         {
             try
@@ -61,6 +78,7 @@ namespace Repository.Repository
                     {
                         exists.Title = notesModel.Title;
                     }
+
                     if (notesModel != null)
                     {
                         this.UserContext.Notes.Update(exists);
@@ -72,6 +90,7 @@ namespace Repository.Repository
                         return "Notes Not Updated SuccessFully !";
                     }
                 }
+
                 return "Note Not present! Add Note";
             }
             catch (ArgumentNullException ex)
@@ -80,6 +99,11 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Updates the color
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful update of color</returns>
         public string UpdateColor(NotesModel notesModel)
         {
             try
@@ -89,7 +113,7 @@ namespace Repository.Repository
                 {
                     if (notesModel.Color != null)
                     {
-                        exists.Color=notesModel.Color;
+                        exists.Color = notesModel.Color;
                         this.UserContext.Notes.Update(exists);
                         this.UserContext.SaveChanges();
                         return "Color Added Successfully !";
@@ -99,6 +123,7 @@ namespace Repository.Repository
                         return "Color not Added Successfully !";
                     }
                 }
+
                 return "Note Not present! Add Note";
             }
             catch (ArgumentNullException ex)
@@ -107,6 +132,11 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Update Archive and returns a string
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns the string after updating archive</returns>
         public string UpdateArchive(NotesModel notesModel)
         {
             try
@@ -122,19 +152,19 @@ namespace Repository.Repository
                     {
                         exists.Is_Archive = true;
                     }
-                        this.UserContext.Notes.Update(exists);
-                        this.UserContext.SaveChanges();
+                      
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
                     if (exists.Is_Archive == true)
                     {
                         return "Archived Successfully !";
                     }
                     else
                     {
-
                         return "Removed from Archive";
                     }
-                  
                 }
+
                 return "Note Not present! Add Note";
             }
             catch (ArgumentNullException ex)
@@ -142,6 +172,12 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Updates the boolean value for Pin
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string after updating pin</returns>
         public string AddPin(NotesModel notesModel)
         {
             try
@@ -157,6 +193,7 @@ namespace Repository.Repository
                     {
                         exists.Is_Pin = true;
                     }
+
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
                     if (exists.Is_Pin == true)
@@ -165,11 +202,10 @@ namespace Repository.Repository
                     }
                     else
                     {
-
                         return "Removed from Pin";
                     }
-
                 }
+
                 return "Note Not present! Add Note";
             }
             catch (ArgumentNullException ex)
@@ -178,19 +214,24 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Updates the boolean value for Trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns> returns string on adding notes to trash after deletion</returns>
         public string DeleteAddToTrash(NotesModel notesModel)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash==false).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == false).FirstOrDefault();
                 if (exists != null)
                 {
                     exists.Is_Trash = true;
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
                     return "Added to trash !";
-
                 }
+
                 return "Note Not present! Add Note";
             }
             catch (ArgumentNullException ex)
@@ -198,22 +239,28 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
-        public List<NotesModel> GetNotes(int UserId)
+
+        /// <summary>
+        /// Gets notes
+        /// </summary>
+        /// <param name="userId">integer UserId</param>
+        /// <returns>Returns a lit of retrieved notes</returns>
+        public List<NotesModel> GetNotes(int userId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x =>x.UserId == UserId && x.Is_Trash == false).ToList();
-                if(exists.Count > 0)
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false).ToList();
+                if (exists.Count > 0)
                 {
                     return exists;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }
-
         }
     }
 }

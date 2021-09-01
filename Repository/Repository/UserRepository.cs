@@ -116,10 +116,11 @@ namespace FundooNotes
                 var exist = this.UserContext.Users.Where(x => x.EmailId == email).FirstOrDefault();
                 if (exist != null)
                 {
-                    if(this.SendToMSMQ(email, "Hello"))
+                    if (this.SendToMSMQ(email, "Hello"))
                     {
                         return "Mail Sent Successfully, Please check your mail !";
                     }
+
                     return "Email Not Sent";
                 }
                 else
@@ -176,7 +177,6 @@ namespace FundooNotes
             receiveMsg.Formatter = new BinaryMessageFormatter();
             string linkToBeSent = receiveMsg.Body.ToString();
             return linkToBeSent;
-            
         }
 
         /// <summary>
@@ -247,7 +247,6 @@ namespace FundooNotes
         /// Send the link for the forgot password to the user
         /// </summary>
         /// <param name="email">string email</param>
-        /// <param name="message">string message</param>
         /// <returns>Returns true if the message in the queue is sent successfully</returns>
         private bool SendEmail(string email)
         {

@@ -1,13 +1,20 @@
-﻿namespace FundooNotes.Controllers
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="NotesController.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace FundooNotes.Controllers
 {
+    using System;
+    using System.Collections.Generic;
     using Manager.Interface;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
-    using System;
-    using System.Collections.Generic;
 
     /// <summary>
-    /// 
+    /// NotesController class
     /// </summary>
     public class NotesController : ControllerBase
     {
@@ -25,15 +32,19 @@
             this.notesManager = notesManager;
         }
 
-
+        /// <summary>
+        /// Adds notes to the table
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string when data added successful</returns>
         [HttpPost]
         [Route("api/addorUpdateNote")]
-        public IActionResult AddNotes([FromBody] NotesModel NotesModel) 
+        public IActionResult AddNotes([FromBody] NotesModel notesModel) 
         {
             try
             {
-                string result = this.notesManager.AddNotes(NotesModel);
-                if(result == "Note Added Successfully !")
+                string result = this.notesManager.AddNotes(notesModel);
+                if (result == "Note Added Successfully !")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -41,12 +52,18 @@
                 {
                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Updates the title or notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful update of data for title or Note</returns>
         [HttpPut]
         [Route("api/UpdateNote")]
         public IActionResult UpdateTitleOrNote([FromBody] NotesModel notesModel)
@@ -69,6 +86,11 @@
             }
         }
 
+        /// <summary>
+        /// Updates the color
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful update of color</returns>
         [HttpPut]
         [Route("api/UpdateColor")]
         public IActionResult UpdateColor([FromBody] NotesModel notesModel)
@@ -91,6 +113,11 @@
             }
         }
 
+        /// <summary>
+        /// Update Archive and returns a string
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns the string after updating archive</returns>
         [HttpPut]
         [Route("api/archive")]
         public IActionResult UpdateArchive([FromBody] NotesModel notesModel)
@@ -113,6 +140,11 @@
             }
         }
 
+        /// <summary>
+        /// Updates the boolean value for Pin
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns a string after updating pin</returns>
         [HttpPut]
         [Route("api/Pin")]
         public IActionResult AddPin([FromBody] NotesModel notesModel)
@@ -135,6 +167,11 @@
             }
         }
 
+        /// <summary>
+        /// Updates the boolean value for Trash
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns> returns string on adding notes to trash after deletion</returns>
         [HttpPut]
         [Route("api/Trash")]
         public IActionResult DeleteAddToTrash([FromBody] NotesModel notesModel)
@@ -157,27 +194,31 @@
             }
         }
 
+        /// <summary>
+        /// Gets notes
+        /// </summary>
+        /// <param name="userId">integer UserId</param>
+        /// <returns>Returns a lit of retrieved notes</returns>
         [HttpPost]
         [Route("api/getNote")]
-        public IActionResult GetNotes(int UserId)
+        public IActionResult GetNotes(int userId)
         {
             try
             {
-                List<NotesModel> notes = this.notesManager.GetNotes(UserId);
-                if (notes!=null)
+                List<NotesModel> notes = this.notesManager.GetNotes(userId);
+                if (notes != null)
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Retrieved notes successful! " });
                 }
                 else
                 {
-                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "No Notes present"}) ;
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "No Notes present" });
                 }
             }
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
-
         }
     }
 }
