@@ -65,7 +65,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="loginDetails">LoginModel loginDetails</param>
         /// <returns>Below function returns the status code as IAction Result</returns>
-        [HttpGet]
+        [HttpPost]
         [Route("api/login")]
         public IActionResult Login([FromBody] LoginModel loginDetails)
         {
@@ -93,7 +93,7 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="email">string email</param>
         /// <returns>Below function returns the status code as IAction Result</returns>
-        [HttpGet]
+        [HttpPost]
         [Route("api/ForgotPassword")]
         public IActionResult ForgotPassword(string email)
         {

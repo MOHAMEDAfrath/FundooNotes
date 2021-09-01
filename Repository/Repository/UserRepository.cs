@@ -125,7 +125,7 @@ namespace FundooNotes
             Message message = new Message();
             message.Formatter = new BinaryMessageFormatter();
             message.Body = url;
-            msqueue.Label = "url Link";
+            msqueue.Label = "url-Link";
             msqueue.Send(message);
             return this.ReceiveFromMSMQ(email);
         }
@@ -192,10 +192,13 @@ namespace FundooNotes
                 {
            
                     var user = this.UserContext.Users.Where(x=>x.EmailId == userData.EmailId).FirstOrDefault();
-                    user.Password = this.EncryptPassword(userData.Password);
-                    this.UserContext.Users.Update(user);
-                    this.UserContext.SaveChanges();
-                    return true;
+                    if (user != null)
+                    {
+                        user.Password = this.EncryptPassword(userData.Password);
+                        this.UserContext.Users.Update(user);
+                        this.UserContext.SaveChanges();
+                        return true;
+                    }
                 }
 
                 return false;
