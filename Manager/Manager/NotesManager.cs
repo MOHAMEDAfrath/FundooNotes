@@ -40,5 +40,17 @@ namespace Manager.Manager
             }
        
         }
+        public string UpdateColor(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.UpdateColor(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }

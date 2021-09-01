@@ -12,5 +12,7 @@ namespace Repository.Interface
         string AddNotes(NotesModel notesModel);
 
         string UpdateTitleOrNote(NotesModel notesModel);
+
+        string UpdateColor(NotesModel notesModel);
     }
 }

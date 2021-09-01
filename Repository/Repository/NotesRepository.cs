@@ -79,5 +79,32 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string UpdateColor(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                if (exists != null)
+                {
+                    if (notesModel != null)
+                    {
+                        exists.Color=notesModel.Color;
+                        this.UserContext.Notes.Update(exists);
+                        this.UserContext.SaveChanges();
+                        return "Color Added Successfully !";
+                    }
+                    else
+                    {
+                        return "Color not Added Successfully !";
+                    }
+                }
+                return "Note Not present! Add Note";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
