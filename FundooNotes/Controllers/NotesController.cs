@@ -274,5 +274,32 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Empty the trash
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <returns>IActionResult status code</returns>
+        [HttpDelete]
+        [Route("api/Trash/EmptyTrash")]
+        public IActionResult EmptyTrash(int userId)
+        {
+            try
+            {
+                string result = this.notesManager.EmptyTrash(userId);
+                if (result == "Trash Emptied")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

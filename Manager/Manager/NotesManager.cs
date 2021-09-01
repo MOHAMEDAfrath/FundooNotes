@@ -183,5 +183,22 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Empty the trash
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <returns>string after empty trash</returns>
+        public string EmptyTrash(int userId)
+        {
+            try
+            {
+                return this.notesRepository.EmptyTrash(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

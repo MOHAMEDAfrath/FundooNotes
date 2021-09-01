@@ -313,5 +313,30 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Empty the trash
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <returns>string after empty trash</returns>
+        public string EmptyTrash(int userId)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == true).ToList();
+                if (exists != null)
+                {
+                    this.UserContext.Notes.RemoveRange(exists);
+                    this.UserContext.SaveChanges();
+                    return "Trash Emptied";
+                }
+
+                return "Trash is empty!";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
