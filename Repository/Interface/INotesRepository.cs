@@ -10,5 +10,7 @@ namespace Repository.Interface
     public interface INotesRepository
     {
         string AddNotes(NotesModel notesModel);
+
+        string UpdateTitleOrNote(NotesModel notesModel);
     }
 }

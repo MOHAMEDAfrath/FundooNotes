@@ -28,5 +28,17 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public string UpdateTitleOrNote(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.UpdateTitleOrNote(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+       
+        }
     }
 }

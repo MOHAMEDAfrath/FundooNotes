@@ -45,5 +45,39 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string UpdateTitleOrNote(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                if (exists != null)
+                {
+                    if (notesModel.Title == null)
+                    {
+                        exists.Notes = notesModel.Notes;
+                    }
+                    else
+                    {
+                        exists.Title = notesModel.Title;
+                    }
+                    if (notesModel != null)
+                    {
+                        this.UserContext.Notes.Update(exists);
+                        this.UserContext.SaveChanges();
+                        return "Note Updated Successfully !";
+                    }
+                    else
+                    {
+                        return "Notes Not Updated SuccessFully !";
+                    }
+                }
+                return "Note Not present! Add Note";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace Manager.Interface
     public interface INotesManager
     {
         string AddNotes(NotesModel notesModel);
+
+        string UpdateTitleOrNote(NotesModel notesModel);
     }
 }

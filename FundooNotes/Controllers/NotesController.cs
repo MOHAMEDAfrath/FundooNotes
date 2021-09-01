@@ -45,5 +45,28 @@
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpPut]
+        [Route("api/UpdateNote")]
+        public IActionResult UpdateTitleOrNote([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.UpdateTitleOrNote(notesModel);
+                if (result == "Note Updated Successfully !")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
     }
 }
