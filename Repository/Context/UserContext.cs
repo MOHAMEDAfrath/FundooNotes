@@ -9,6 +9,7 @@ namespace Repository.Context
 {
     using FundooNotes.Models;
     using Microsoft.EntityFrameworkCore;
+    using Models;
 
     /// <summary>
     /// UserContext class responsible for database operations
@@ -27,5 +28,6 @@ namespace Repository.Context
         /// Gets or sets DatabaseSet for users to manipulate user data
         /// </summary>
         public DbSet<RegisterModel> Users { get; set; }
+        public DbSet<NotesModel> Notes { get; set; }
     }
 }

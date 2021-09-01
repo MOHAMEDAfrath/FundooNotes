@@ -7,6 +7,7 @@
 
 namespace Models
 {
+    using FundooNotes.Models;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -19,8 +20,13 @@ namespace Models
         /// <summary>
         /// Gets or sets the UserId.
         /// </summary>
-        [ForeignKey("RegisterModel")]
         public int UserId { get; set; }
+
+        /// <summary>
+        /// For foreign key
+        /// </summary>
+        [ForeignKey("UserId")]
+        public RegisterModel register { get; set; }
 
         /// <summary>
         /// Gets or sets the Notes ID.
@@ -62,18 +68,18 @@ namespace Models
         /// Gets or sets a value indicating whether this is archive.
         /// </summary>
         [DefaultValue(false)]
-        public bool Archive { get; set; }
+        public bool Is_Archive { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this is trash.
         /// </summary>
         [DefaultValue(false)]
-        public bool Trash { get; set; }
+        public bool Is_Trash { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this is pin.
         /// </summary>
         [DefaultValue(false)]
-        public bool Pin { get; set; }
+        public bool Is_Pin { get; set; }
     }
 }
