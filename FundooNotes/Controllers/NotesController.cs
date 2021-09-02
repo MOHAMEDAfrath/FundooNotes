@@ -355,5 +355,34 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Deletes remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns IActionResult status code after removing the remainder</returns>
+        [HttpPost]
+        [Route("api/GetRemainderNotes")]
+        public IActionResult GetRemainderNotes([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                var result = this.notesManager.GetRemainderNotes(notesModel);
+
+                if (result.Count > 0)
+                {
+                    return this.Ok(new ResponseModel<List<NotesModel>>() { Status = true, Message = "Retrieved Successfully", Data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Retrieval Failed" });
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

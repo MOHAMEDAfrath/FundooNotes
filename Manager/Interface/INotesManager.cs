@@ -98,5 +98,7 @@ namespace Manager.Interface
         /// <param name="notesModel">NotesModel notesModel</param>
         /// <returns>returns string after removing the remainder</returns>
         string DeleteRemainder(NotesModel notesModel);
+
+        List<NotesModel> GetRemainderNotes(NotesModel notesModel);
     }
 }
