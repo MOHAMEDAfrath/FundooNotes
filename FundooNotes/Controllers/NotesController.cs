@@ -12,6 +12,7 @@ namespace FundooNotes.Controllers
     using Manager.Interface;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
+    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// NotesController class

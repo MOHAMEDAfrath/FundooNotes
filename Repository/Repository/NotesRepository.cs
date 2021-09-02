@@ -41,7 +41,7 @@ namespace Repository.Repository
         {
             try
             {
-                if (notesModel != null)
+                if (notesModel.Title != null || notesModel.Notes != null)
                 {
                     this.UserContext.Notes.Add(notesModel);
                     this.UserContext.SaveChanges();
@@ -67,28 +67,14 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
                 if (exists != null)
                 {
-                    if (notesModel.Title == null)
-                    {
-                        exists.Notes = notesModel.Notes;
-                    }
-                    else
-                    {
-                        exists.Title = notesModel.Title;
-                    }
-
-                    if (notesModel != null)
-                    {
-                        this.UserContext.Notes.Update(exists);
-                        this.UserContext.SaveChanges();
-                        return "Note Updated Successfully !";
-                    }
-                    else
-                    {
-                        return "Notes Not Updated SuccessFully !";
-                    }
+                    exists.Notes = notesModel.Notes;
+                    exists.Title = notesModel.Title;
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    return "Note Updated Successfully !";
                 }
 
                 return "Note Not present! Add Note";
@@ -108,7 +94,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
                 if (exists != null)
                 {
                     if (notesModel.Color != null)
@@ -141,7 +127,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
                 if (exists != null)
                 {
                     if (exists.Is_Archive == true)
@@ -182,7 +168,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
                 if (exists != null)
                 {
                     if (exists.Is_Pin == true)
@@ -223,7 +209,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == false).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == false).FirstOrDefault();
                 if (exists != null)
                 {
                     exists.Is_Trash = true;
@@ -249,7 +235,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false).ToList();
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Is_Archive == false).ToList();
                 if (exists.Count > 0)
                 {
                     return exists;
@@ -272,7 +258,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == true).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == true).FirstOrDefault();
                 if (exists != null)
                 {
                     exists.Is_Trash = false;
@@ -298,7 +284,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.UserId == notesModel.UserId && x.Is_Trash == true).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == true).FirstOrDefault();
                 if (exists != null)
                 {
                     this.UserContext.Notes.Remove(exists);
