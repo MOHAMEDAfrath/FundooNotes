@@ -102,5 +102,8 @@ namespace Manager.Interface
         List<NotesModel> GetRemainderNotes(NotesModel notesModel);
 
         List<NotesModel> GetArchiveNotes(NotesModel notesModel);
+
+        List<NotesModel> GetTrashNotes(NotesModel notesModel);
     }
+
 }

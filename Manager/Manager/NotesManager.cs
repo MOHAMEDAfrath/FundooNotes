@@ -257,5 +257,17 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<NotesModel> GetTrashNotes(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.GetTrashNotes(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

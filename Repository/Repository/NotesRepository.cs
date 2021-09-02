@@ -410,5 +410,22 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<NotesModel> GetTrashNotes(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == true).ToList();
+                if (exists != null)
+                {
+                    return exists;
+                }
+                return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
