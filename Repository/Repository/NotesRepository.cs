@@ -381,8 +381,25 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Remainder != null).ToList();
+                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == false && x.Remainder != null).ToList();
                 if (exists!=null)
+                {
+                    return exists;
+                }
+                return null;
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == false && x.Is_Archive == true).ToList();
+                if (exists != null)
                 {
                     return exists;
                 }

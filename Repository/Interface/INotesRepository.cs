@@ -99,5 +99,7 @@ namespace Repository.Interface
         string DeleteRemainder(NotesModel notesModel);
 
         List<NotesModel> GetRemainderNotes(NotesModel notesModel);
+
+        List<NotesModel> GetArchiveNotes(NotesModel notesModel);
     }
 }

@@ -246,5 +246,16 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.GetArchiveNotes(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
