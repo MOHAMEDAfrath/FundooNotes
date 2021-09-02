@@ -10,7 +10,6 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using Manager.Interface;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
 
@@ -316,6 +315,33 @@ namespace FundooNotes.Controllers
             {
                 string result = this.notesManager.SetRemainder(notesModel);
                 if (result == "Remainder Set")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Deletes remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns IActionResult status code after removing the remainder</returns>
+        [HttpPut]
+        [Route("api/RemainderDelete")]
+        public IActionResult DeleteRemainder([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.DeleteRemainder(notesModel);
+                if (result == "Remainder Removed")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }

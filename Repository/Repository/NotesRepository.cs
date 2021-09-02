@@ -350,5 +350,31 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Deletes remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string after removing the remainder</returns>
+        public string DeleteRemainder(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                if (exists != null)
+                {
+                    exists.Remainder = null;
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    return "Remainder Removed";
+                }
+
+                return "No Note present!";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

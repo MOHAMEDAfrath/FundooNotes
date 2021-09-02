@@ -90,5 +90,12 @@ namespace Repository.Interface
         /// <param name="notesModel">NotesModel notesModel</param>
         /// <returns>returns string on successful remainder set</returns>
         string SetRemainder(NotesModel notesModel);
+
+        /// <summary>
+        /// Deletes remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string after removing the remainder</returns>
+        string DeleteRemainder(NotesModel notesModel);
     }
 }

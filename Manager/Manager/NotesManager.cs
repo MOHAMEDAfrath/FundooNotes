@@ -217,5 +217,22 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Deletes remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string after removing the remainder</returns>
+        public string DeleteRemainder(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.DeleteRemainder(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
