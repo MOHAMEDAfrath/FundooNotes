@@ -208,7 +208,7 @@ namespace FundooNotes.Controllers
                 List<NotesModel> notes = this.notesManager.GetNotes(userId);
                 if (notes != null)
                 {
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = "Retrieved notes successful! " });
+                    return this.Ok(new ResponseModel<List<NotesModel>>() { Status = true, Message = "Retrieved notes successful! ", Data = notes });
                 }
                 else
                 {
@@ -357,7 +357,7 @@ namespace FundooNotes.Controllers
         }
 
         /// <summary>
-        /// Deletes remainder
+        /// Get remainder Notes
         /// </summary>
         /// <param name="notesModel">NotesModel notesModel</param>
         /// <returns>returns IActionResult status code after removing the remainder</returns>
@@ -377,7 +377,6 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Retrieval Failed" });
                 }
-
             }
             catch (Exception ex)
             {
@@ -385,6 +384,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Archive Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns IAction Status Code result as result</returns>
         [HttpPost]
         [Route("api/GetArchiveNotes")]
         public IActionResult GetArchiveNotes([FromBody] NotesModel notesModel)
@@ -401,7 +405,6 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Retrieval Failed" });
                 }
-
             }
             catch (Exception ex)
             {
@@ -409,6 +412,11 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Get Trash Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns IAction Status Code result as result</returns>
         [HttpPost]
         [Route("api/GetTrashNotes")]
         public IActionResult GetTrashNotes([FromBody] NotesModel notesModel)
@@ -425,7 +433,6 @@ namespace FundooNotes.Controllers
                 {
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Retrieval Failed" });
                 }
-
             }
             catch (Exception ex)
             {
@@ -433,5 +440,4 @@ namespace FundooNotes.Controllers
             }
         }
     }
-
 }

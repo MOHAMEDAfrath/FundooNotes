@@ -99,11 +99,25 @@ namespace Manager.Interface
         /// <returns>returns string after removing the remainder</returns>
         string DeleteRemainder(NotesModel notesModel);
 
+        /// <summary>
+        /// Get Remainder Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         List<NotesModel> GetRemainderNotes(NotesModel notesModel);
 
+        /// <summary>
+        /// Get Archive Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         List<NotesModel> GetArchiveNotes(NotesModel notesModel);
 
+        /// <summary>
+        /// Get Trash Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         List<NotesModel> GetTrashNotes(NotesModel notesModel);
     }
-
 }

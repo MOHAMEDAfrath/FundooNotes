@@ -377,15 +377,21 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Get Remainder Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetRemainderNotes(NotesModel notesModel)
         {
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == false && x.Remainder != null).ToList();
-                if (exists!=null)
+                if (exists != null)
                 {
                     return exists;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -394,6 +400,11 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Get Archive Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
         {
             try
@@ -403,6 +414,7 @@ namespace Repository.Repository
                 {
                     return exists;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)
@@ -411,6 +423,11 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Get Trash Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetTrashNotes(NotesModel notesModel)
         {
             try
@@ -420,6 +437,7 @@ namespace Repository.Repository
                 {
                     return exists;
                 }
+
                 return null;
             }
             catch (ArgumentNullException ex)

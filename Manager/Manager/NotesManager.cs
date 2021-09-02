@@ -235,6 +235,11 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Get Remainder Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetRemainderNotes(NotesModel notesModel)
         {
             try
@@ -246,6 +251,12 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get Archive Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
         {
             try
@@ -258,6 +269,11 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Get Trash Notes
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns list as result</returns>
         public List<NotesModel> GetTrashNotes(NotesModel notesModel)
         {
             try
