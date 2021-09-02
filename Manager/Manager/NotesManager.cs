@@ -200,5 +200,22 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Sets remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful remainder set</returns>
+        public string SetRemainder(NotesModel notesModel)
+        {
+            try
+            {
+                return this.notesRepository.SetRemainder(notesModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

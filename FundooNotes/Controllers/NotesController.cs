@@ -10,9 +10,9 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using Manager.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
-    using Microsoft.AspNetCore.Authorization;
 
     /// <summary>
     /// NotesController class
@@ -300,6 +300,33 @@ namespace FundooNotes.Controllers
             catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Sets remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns IActionResult as status code on successful remainder set</returns>
+        [HttpPost]
+        [Route("api/Remainder")]
+        public IActionResult SetRemainder([FromBody] NotesModel notesModel)
+        {
+            try
+            {
+                string result = this.notesManager.SetRemainder(notesModel);
+                if (result == "Remainder Set")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                else
+                {
+                    return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string> { Status = false, Message = ex.Message });
             }
         }
     }

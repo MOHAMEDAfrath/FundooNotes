@@ -324,5 +324,31 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Sets remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful remainder set</returns>
+        public string SetRemainder(NotesModel notesModel)
+        {
+            try
+            {
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                if (exists != null) 
+                {
+                    exists.Remainder = notesModel.Remainder;
+                    this.UserContext.Notes.Update(exists);
+                    this.UserContext.SaveChanges();
+                    return "Remainder Set"; 
+                }
+
+                return "Remainder Not Set";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

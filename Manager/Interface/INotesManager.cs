@@ -84,5 +84,12 @@ namespace Manager.Interface
         /// <param name="userId">integer userId</param>
         /// <returns>string after empty trash</returns>
         string EmptyTrash(int userId);
+
+        /// <summary>
+        /// Sets remainder
+        /// </summary>
+        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <returns>returns string on successful remainder set</returns>
+        string SetRemainder(NotesModel notesModel);
     }
 }
