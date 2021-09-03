@@ -49,7 +49,7 @@ namespace Repository.Repository
                 }
                 else
                 {
-                    return "Notes Not Added SuccessFully !";
+                    return "Note Not Added SuccessFully !";
                 }
             }
             catch (ArgumentNullException ex)
@@ -128,30 +128,34 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                string message = "";
                 if (exists != null)
                 {
                     if (exists.Is_Archive == true)
                     {
                         exists.Is_Archive = false;
+                        message = "Note unarchived";
                     }
                     else
                     {
                         exists.Is_Archive = true;
-                    }
-                      
+                        message = "Note archived";
+                        if (exists.Is_Pin == true)
+                        {
+                            exists.Is_Pin = false;
+                            message = "Note unpinned and archived";
+                        }
+                    }  
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
-                    if (exists.Is_Archive == true)
-                    {
-                        return "Archived Successfully !";
-                    }
-                    else
-                    {
-                        return "Removed from Archive";
-                    }
+
+                }
+                else
+                {
+                    message = "Note Not present! Add Note";
                 }
 
-                return "Note Not present! Add Note";
+                return message;
             }
             catch (ArgumentNullException ex)
             {
@@ -169,30 +173,34 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                string message = "";
                 if (exists != null)
                 {
                     if (exists.Is_Pin == true)
                     {
                         exists.Is_Pin = false;
+                        message = "Unpin Note";
                     }
                     else
                     {
                         exists.Is_Pin = true;
+                        message = "Pinned";
+                        if (exists.Is_Archive == true)
+                        {
+                            exists.Is_Archive = false;
+                            message = "Note unarchived and pinned";
+                        }
                     }
 
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
-                    if (exists.Is_Pin == true)
-                    {
-                        return "Pinned Successfully !";
-                    }
-                    else
-                    {
-                        return "Removed from Pin";
-                    }
+                }
+                else
+                {
+                    message = "Note Not present! Add Note";
                 }
 
-                return "Note Not present! Add Note";
+                return message;
             }
             catch (ArgumentNullException ex)
             {
@@ -210,15 +218,25 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == false).FirstOrDefault();
+                string message = "";
                 if (exists != null)
                 {
                     exists.Is_Trash = true;
+                    message = "Note trashed";
+                    if(exists.Is_Pin == true)
+                    {
+                        exists.Is_Pin = false;
+                        message = "Note unpinned and trashed";
+                    }
+                    exists.Remainder = null;
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
-                    return "Added to trash !";
                 }
-
-                return "Note Not present! Add Note";
+                else
+                {
+                    message = "Note Not present! Add Note";
+                }
+                return message;
             }
             catch (ArgumentNullException ex)
             {

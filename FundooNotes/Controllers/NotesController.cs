@@ -127,7 +127,7 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.notesManager.UpdateArchive(notesModel);
-                if (result == "Archived Successfully !" || result == "Removed from Archive")
+                if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -154,7 +154,7 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.notesManager.AddPin(notesModel);
-                if (result == "Pinned Successfully !" || result == "Removed from Pin")
+                if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -181,7 +181,7 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.notesManager.DeleteAddToTrash(notesModel);
-                if (result == "Added to trash !")
+                if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
