@@ -128,7 +128,7 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
-                string message = "";
+                string message = string.Empty;
                 if (exists != null)
                 {
                     if (exists.Is_Archive == true)
@@ -146,9 +146,9 @@ namespace Repository.Repository
                             message = "Note unpinned and archived";
                         }
                     }  
+
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
-
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
-                string message = "";
+                string message = string.Empty;
                 if (exists != null)
                 {
                     if (exists.Is_Pin == true)
@@ -218,16 +218,18 @@ namespace Repository.Repository
             try
             {
                 var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == false).FirstOrDefault();
-                string message = "";
+                string message = string.Empty;
                 if (exists != null)
                 {
                     exists.Is_Trash = true;
                     message = "Note trashed";
-                    if(exists.Is_Pin == true)
+
+                    if (exists.Is_Pin == true)
                     {
                         exists.Is_Pin = false;
                         message = "Note unpinned and trashed";
                     }
+
                     exists.Remainder = null;
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
@@ -236,6 +238,7 @@ namespace Repository.Repository
                 {
                     message = "Note Not present! Add Note";
                 }
+
                 return message;
             }
             catch (ArgumentNullException ex)
