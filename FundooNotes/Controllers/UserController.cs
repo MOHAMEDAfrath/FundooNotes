@@ -11,6 +11,7 @@ namespace FundooNotes.Controllers
     using FundooNotes.Managers.Interface;
     using FundooNotes.Models;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using global::Models;
 
     /// <summary>
@@ -24,12 +25,19 @@ namespace FundooNotes.Controllers
         private readonly IUserManager userManager;
 
         /// <summary>
+        /// ILogger logger
+        /// </summary>
+        private readonly ILogger<UserController> logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class and create a object of IUserManager on runtime
         /// </summary>
         /// <param name="userManager">IUserManager userManager</param>
-        public UserController(IUserManager userManager)
+        /// <param name="logger">ILogger logger</param>
+        public UserController(IUserManager userManager, ILogger<UserController> logger)
         {
             this.userManager = userManager;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -43,19 +51,23 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                this.logger.LogInformation(userData.FirstName + " " + userData.LastName + " is trying to register");
                 string result = this.userManager.Register(userData);
 
                 if (result == "Registration Successfull !")
                 {
+                    this.logger.LogInformation(userData.FirstName + " " + userData.LastName + " " + result);
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
                 else
                 {
+                    this.logger.LogInformation(userData.FirstName + " " + userData.LastName + " " + result);
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)
             {
+                this.logger.LogInformation("Exception occured while using register " + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
@@ -71,19 +83,23 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                this.logger.LogInformation(loginDetails.EmailId + " is trying to Login");
                 string result = this.userManager.Login(loginDetails);
                 string token = this.userManager.GenerateToken(loginDetails.EmailId);
                 if (result != "Login Failed ,Invalid Credentials !")
                 {
+                    this.logger.LogInformation(loginDetails.EmailId + " logged in successfully and the token generated is " + token);
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!", Data = result + " , Token : " + token });
                 }
                 else
                 {
+                    this.logger.LogInformation(loginDetails.EmailId + " " + result);
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)
             {
+                this.logger.LogInformation("Exception occured while logging in " + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
@@ -99,19 +115,23 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                this.logger.LogInformation(email + "is using forgot password");
                 string result = this.userManager.ForgotPassword(email);
 
                 if (result == "Mail Sent Successfully, Please check your mail !")
                 {
+                    this.logger.LogInformation(result);
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
                 else
                 {
+                    this.logger.LogInformation(result);
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
                 }
             }
             catch (Exception ex)
             {
+                this.logger.LogInformation("Exception occured while using forgot password " + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
@@ -127,19 +147,23 @@ namespace FundooNotes.Controllers
         {
             try
             {
+                this.logger.LogInformation(resetModel.EmailId + "is using reset password");
                 bool result = this.userManager.ResetPassword(resetModel);
 
                 if (result == true)
                 {
+                    this.logger.LogInformation("Password reseted Successfully for " + resetModel.EmailId);
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Password Reseted Successfully" });
                 }
                 else
                 {
+                    this.logger.LogInformation("Password Reset Failed!");
                     return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Password Reset Failed!" });
                 }
             }
             catch (Exception ex)
             {
+                this.logger.LogInformation("Exception occured while using reset password " + ex.Message);
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
