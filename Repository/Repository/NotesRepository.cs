@@ -67,7 +67,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).SingleOrDefault();
                 if (exists != null)
                 {
                     exists.Notes = notesModel.Notes;
@@ -88,18 +88,19 @@ namespace Repository.Repository
         /// <summary>
         /// Updates the color
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="noteId">integer noteId</param>
+        /// <param name="color">string color</param>
         /// <returns>returns string on successful update of color</returns>
-        public string UpdateColor(NotesModel notesModel)
+        public string UpdateColor(int noteId, string color)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == noteId).SingleOrDefault();
                 if (exists != null)
                 {
-                    if (notesModel.Color != null)
+                    if (color != null)
                     {
-                        exists.Color = notesModel.Color;
+                        exists.Color = color;
                         this.UserContext.Notes.Update(exists);
                         this.UserContext.SaveChanges();
                         return "Color Added Successfully !";
@@ -121,13 +122,13 @@ namespace Repository.Repository
         /// <summary>
         /// Update Archive and returns a string
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns the string after updating archive</returns>
-        public string UpdateArchive(NotesModel notesModel)
+        public string UpdateArchive(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId).SingleOrDefault();
                 string message = string.Empty;
                 if (exists != null)
                 {
@@ -166,13 +167,13 @@ namespace Repository.Repository
         /// <summary>
         /// Updates the boolean value for Pin
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string after updating pin</returns>
-        public string AddPin(NotesModel notesModel)
+        public string AddPin(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId).SingleOrDefault();
                 string message = string.Empty;
                 if (exists != null)
                 {
@@ -211,13 +212,13 @@ namespace Repository.Repository
         /// <summary>
         /// Updates the boolean value for Trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns> returns string on adding notes to trash after deletion</returns>
-        public string DeleteAddToTrash(NotesModel notesModel)
+        public string DeleteAddToTrash(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == false).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId && x.Is_Trash == false).SingleOrDefault();
                 string message = string.Empty;
                 if (exists != null)
                 {
@@ -273,13 +274,13 @@ namespace Repository.Repository
         /// <summary>
         /// Restore to home from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful restore</returns>
-        public string RestoreFromTrash(NotesModel notesModel)
+        public string RestoreFromTrash(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == true).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId && x.Is_Trash == true).SingleOrDefault();
                 if (exists != null)
                 {
                     exists.Is_Trash = false;
@@ -299,13 +300,13 @@ namespace Repository.Repository
         /// <summary>
         /// Delete data from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful delete</returns>
-        public string DeleteaNoteFromTrash(NotesModel notesModel)
+        public string DeleteaNoteFromTrash(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId && x.Is_Trash == true).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId && x.Is_Trash == true).SingleOrDefault();
                 if (exists != null)
                 {
                     this.UserContext.Notes.Remove(exists);
@@ -349,16 +350,17 @@ namespace Repository.Repository
         /// <summary>
         /// Sets remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="remainder">string remainder</param>
         /// <returns>returns string on successful remainder set</returns>
-        public string SetRemainder(NotesModel notesModel)
+        public string SetRemainder(int notesId, string remainder)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId).SingleOrDefault();
                 if (exists != null) 
                 {
-                    exists.Remainder = notesModel.Remainder;
+                    exists.Remainder = remainder;
                     this.UserContext.Notes.Update(exists);
                     this.UserContext.SaveChanges();
                     return "Remainder Set"; 
@@ -375,13 +377,13 @@ namespace Repository.Repository
         /// <summary>
         /// Deletes remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns string after removing the remainder</returns>
-        public string DeleteRemainder(NotesModel notesModel)
+        public string DeleteRemainder(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesModel.NotesId).FirstOrDefault();
+                var exists = this.UserContext.Notes.Where(x => x.NotesId == notesId).SingleOrDefault();
                 if (exists != null)
                 {
                     exists.Remainder = null;
@@ -401,13 +403,13 @@ namespace Repository.Repository
         /// <summary>
         /// Get Remainder Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetRemainderNotes(NotesModel notesModel)
+        public List<NotesModel> GetRemainderNotes(int userId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == false && x.Remainder != null).ToList();
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Remainder != null).ToList();
                 if (exists != null)
                 {
                     return exists;
@@ -424,13 +426,13 @@ namespace Repository.Repository
         /// <summary>
         /// Get Archive Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
+        public List<NotesModel> GetArchiveNotes(int userId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == false && x.Is_Archive == true).ToList();
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Is_Archive == true).ToList();
                 if (exists != null)
                 {
                     return exists;
@@ -447,13 +449,13 @@ namespace Repository.Repository
         /// <summary>
         /// Get Trash Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetTrashNotes(NotesModel notesModel)
+        public List<NotesModel> GetTrashNotes(int userId)
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == notesModel.UserId && x.Is_Trash == true).ToList();
+                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == true).ToList();
                 if (exists != null)
                 {
                     return exists;

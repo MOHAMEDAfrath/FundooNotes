@@ -32,30 +32,31 @@ namespace Manager.Interface
         /// <summary>
         /// Updates the color
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="noteId">integer noteId</param>
+        /// <param name="color">string color</param>
         /// <returns>returns string on successful update of color</returns>
-        string UpdateColor(NotesModel notesModel);
+        string UpdateColor(int noteId, string color);
 
         /// <summary>
         /// Update Archive and returns a string
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns the string after updating archive</returns>
-        string UpdateArchive(NotesModel notesModel);
+        string UpdateArchive(int notesId);
 
         /// <summary>
         /// Updates the boolean value for Pin
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string after updating pin</returns>
-        string AddPin(NotesModel notesModel);
+        string AddPin(int notesId);
 
         /// <summary>
         /// Updates the boolean value for Trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns> returns string on adding notes to trash after deletion</returns>
-        string DeleteAddToTrash(NotesModel notesModel);
+        string DeleteAddToTrash(int notesId);
 
         /// <summary>
         /// Gets notes
@@ -67,16 +68,16 @@ namespace Manager.Interface
         /// <summary>
         /// Restore to home from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful restore</returns>
-        string RestoreFromTrash(NotesModel notesModel);
+        string RestoreFromTrash(int notesId);
 
         /// <summary>
         /// Delete data from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful delete</returns>
-        string DeleteaNoteFromTrash(NotesModel notesModel);
+        string DeleteaNoteFromTrash(int notesId);
 
         /// <summary>
         /// Empty the trash
@@ -88,36 +89,37 @@ namespace Manager.Interface
         /// <summary>
         /// Sets remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="remainder">string remainder</param>
         /// <returns>returns string on successful remainder set</returns>
-        string SetRemainder(NotesModel notesModel);
+        string SetRemainder(int notesId, string remainder);
 
         /// <summary>
         /// Deletes remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns string after removing the remainder</returns>
-        string DeleteRemainder(NotesModel notesModel);
+        string DeleteRemainder(int notesId);
 
         /// <summary>
         /// Get Remainder Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        List<NotesModel> GetRemainderNotes(NotesModel notesModel);
+        List<NotesModel> GetRemainderNotes(int userId);
 
         /// <summary>
         /// Get Archive Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        List<NotesModel> GetArchiveNotes(NotesModel notesModel);
+        List<NotesModel> GetArchiveNotes(int userId);
 
         /// <summary>
         /// Get Trash Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        List<NotesModel> GetTrashNotes(NotesModel notesModel);
+        List<NotesModel> GetTrashNotes(int userId);
     }
 }

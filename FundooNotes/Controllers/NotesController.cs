@@ -91,15 +91,16 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Updates the color
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="noteId">integer noteId</param>
+        /// <param name="color">string color</param>
         /// <returns>returns IActionResult as status code on successful update of color</returns>
         [HttpPut]
         [Route("api/UpdateColor")]
-        public IActionResult UpdateColor([FromBody] NotesModel notesModel)
+        public IActionResult UpdateColor(int noteId, string color)
         {
             try
             {
-                string result = this.notesManager.UpdateColor(notesModel);
+                string result = this.notesManager.UpdateColor(noteId, color);
                 if (result == "Color Added Successfully !")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -118,15 +119,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Update Archive and returns a string
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns the IActionResult as status code after updating archive</returns>
         [HttpPut]
         [Route("api/archive")]
-        public IActionResult UpdateArchive([FromBody] NotesModel notesModel)
+        public IActionResult UpdateArchive(int notesId)
         {
             try
             {
-                string result = this.notesManager.UpdateArchive(notesModel);
+                string result = this.notesManager.UpdateArchive(notesId);
                 if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -145,15 +146,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Updates the boolean value for Pin
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a IActionResult as status code after updating pin</returns>
         [HttpPut]
         [Route("api/Pin")]
-        public IActionResult AddPin([FromBody] NotesModel notesModel)
+        public IActionResult AddPin(int notesId)
         {
             try
             {
-                string result = this.notesManager.AddPin(notesModel);
+                string result = this.notesManager.AddPin(notesId);
                 if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -172,15 +173,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Updates the boolean value for Trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns> returns IActionResult as status code on adding notes to trash after deletion</returns>
         [HttpPut]
         [Route("api/Trash")]
-        public IActionResult DeleteAddToTrash([FromBody] NotesModel notesModel)
+        public IActionResult DeleteAddToTrash(int notesId)
         {
             try
             {
-                string result = this.notesManager.DeleteAddToTrash(notesModel);
+                string result = this.notesManager.DeleteAddToTrash(notesId);
                 if (result != "Note Not present! Add Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -226,15 +227,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Restore from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a IAction on successful restore</returns>
         [HttpPut]
         [Route("api/Trash/Restore")]
-        public IActionResult RestoreFromTrash([FromBody] NotesModel notesModel)
+        public IActionResult RestoreFromTrash(int notesId)
         {
             try
             {
-                string result = this.notesManager.RestoreFromTrash(notesModel);
+                string result = this.notesManager.RestoreFromTrash(notesId);
                 if (result == "Removed from trash !")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -253,15 +254,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Delete from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>IActionResult as Status Code</returns>
         [HttpDelete]
         [Route("api/Trash/Delete")]
-        public IActionResult DeleteaNoteFromTrash([FromBody] NotesModel notesModel)
+        public IActionResult DeleteaNoteFromTrash(int notesId)
         {
             try
             {
-                string result = this.notesManager.DeleteaNoteFromTrash(notesModel);
+                string result = this.notesManager.DeleteaNoteFromTrash(notesId);
                 if (result == "Deleted Data Successfully")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -307,15 +308,16 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Sets remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="remainder">string remainder</param>
         /// <returns>returns IActionResult as status code on successful remainder set</returns>
         [HttpPost]
         [Route("api/Remainder")]
-        public IActionResult SetRemainder([FromBody] NotesModel notesModel)
+        public IActionResult SetRemainder(int notesId, string remainder)
         {
             try
             {
-                string result = this.notesManager.SetRemainder(notesModel);
+                string result = this.notesManager.SetRemainder(notesId, remainder);
                 if (result == "Remainder Set")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -334,15 +336,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Deletes remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns IActionResult status code after removing the remainder</returns>
         [HttpPut]
         [Route("api/RemainderDelete")]
-        public IActionResult DeleteRemainder([FromBody] NotesModel notesModel)
+        public IActionResult DeleteRemainder(int notesId)
         {
             try
             {
-                string result = this.notesManager.DeleteRemainder(notesModel);
+                string result = this.notesManager.DeleteRemainder(notesId);
                 if (result == "Remainder Removed")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -361,15 +363,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Get remainder Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns IActionResult status code after removing the remainder</returns>
         [HttpPost]
         [Route("api/GetRemainderNotes")]
-        public IActionResult GetRemainderNotes([FromBody] NotesModel notesModel)
+        public IActionResult GetRemainderNotes(int userId)
         {
             try
             {
-                var result = this.notesManager.GetRemainderNotes(notesModel);
+                var result = this.notesManager.GetRemainderNotes(userId);
 
                 if (result.Count > 0)
                 {
@@ -389,15 +391,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Get Archive Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns IAction Status Code result as result</returns>
         [HttpPost]
         [Route("api/GetArchiveNotes")]
-        public IActionResult GetArchiveNotes([FromBody] NotesModel notesModel)
+        public IActionResult GetArchiveNotes(int userId)
         {
             try
             {
-                var result = this.notesManager.GetArchiveNotes(notesModel);
+                var result = this.notesManager.GetArchiveNotes(userId);
 
                 if (result.Count > 0)
                 {
@@ -417,15 +419,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Get Trash Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns IAction Status Code result as result</returns>
         [HttpPost]
         [Route("api/GetTrashNotes")]
-        public IActionResult GetTrashNotes([FromBody] NotesModel notesModel)
+        public IActionResult GetTrashNotes(int userId)
         {
             try
             {
-                var result = this.notesManager.GetTrashNotes(notesModel);
+                var result = this.notesManager.GetTrashNotes(userId);
 
                 if (result.Count > 0)
                 {

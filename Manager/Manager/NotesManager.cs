@@ -68,13 +68,14 @@ namespace Manager.Manager
         /// <summary>
         /// Updates the color
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="noteId">integer noteId</param>
+        /// <param name="color">string color</param>
         /// <returns>returns string on successful update of color</returns>
-        public string UpdateColor(NotesModel notesModel)
+        public string UpdateColor(int noteId, string color)
         {
             try
             {
-                return this.notesRepository.UpdateColor(notesModel);
+                return this.notesRepository.UpdateColor(noteId, color);
             }
             catch (Exception ex)
             {
@@ -85,13 +86,13 @@ namespace Manager.Manager
         /// <summary>
         /// Update Archive and returns a string
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns the string after updating archive</returns>
-        public string UpdateArchive(NotesModel notesModel)
+        public string UpdateArchive(int notesId)
         {
             try
             {
-                return this.notesRepository.UpdateArchive(notesModel);
+                return this.notesRepository.UpdateArchive(notesId);
             }
             catch (Exception ex)
             {
@@ -102,13 +103,13 @@ namespace Manager.Manager
         /// <summary>
         /// Updates the boolean value for Pin
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string after updating pin</returns>
-        public string AddPin(NotesModel notesModel)
+        public string AddPin(int notesId)
         {
             try
             {
-                return this.notesRepository.AddPin(notesModel);
+                return this.notesRepository.AddPin(notesId);
             }
             catch (Exception ex)
             {
@@ -119,13 +120,13 @@ namespace Manager.Manager
         /// <summary>
         /// Updates the boolean value for Trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns> returns string on adding notes to trash after deletion</returns>
-        public string DeleteAddToTrash(NotesModel notesModel)
+        public string DeleteAddToTrash(int notesId)
         {
             try
             {
-                return this.notesRepository.DeleteAddToTrash(notesModel);
+                return this.notesRepository.DeleteAddToTrash(notesId);
             }
             catch (Exception ex)
             {
@@ -153,13 +154,13 @@ namespace Manager.Manager
         /// <summary>
         /// Restore to home from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful restore</returns>
-        public string RestoreFromTrash(NotesModel notesModel)
+        public string RestoreFromTrash(int notesId)
         {
             try
             {
-                return this.notesRepository.RestoreFromTrash(notesModel);
+                return this.notesRepository.RestoreFromTrash(notesId);
             }
             catch (Exception ex)
             {
@@ -170,13 +171,13 @@ namespace Manager.Manager
         /// <summary>
         /// Delete data from trash
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns a string on successful delete</returns>
-        public string DeleteaNoteFromTrash(NotesModel notesModel)
+        public string DeleteaNoteFromTrash(int notesId)
         {
             try
             {
-                return this.notesRepository.DeleteaNoteFromTrash(notesModel);
+                return this.notesRepository.DeleteaNoteFromTrash(notesId);
             }
             catch (Exception ex)
             {
@@ -204,13 +205,14 @@ namespace Manager.Manager
         /// <summary>
         /// Sets remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="remainder">string remainder</param>
         /// <returns>returns string on successful remainder set</returns>
-        public string SetRemainder(NotesModel notesModel)
+        public string SetRemainder(int notesId, string remainder)
         {
             try
             {
-                return this.notesRepository.SetRemainder(notesModel);
+                return this.notesRepository.SetRemainder(notesId, remainder);
             }
             catch (Exception ex)
             {
@@ -221,13 +223,13 @@ namespace Manager.Manager
         /// <summary>
         /// Deletes remainder
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="notesId">integer notesId</param>
         /// <returns>returns string after removing the remainder</returns>
-        public string DeleteRemainder(NotesModel notesModel)
+        public string DeleteRemainder(int notesId)
         {
             try
             {
-                return this.notesRepository.DeleteRemainder(notesModel);
+                return this.notesRepository.DeleteRemainder(notesId);
             }
             catch (Exception ex)
             {
@@ -238,13 +240,13 @@ namespace Manager.Manager
         /// <summary>
         /// Get Remainder Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetRemainderNotes(NotesModel notesModel)
+        public List<NotesModel> GetRemainderNotes(int userId)
         {
             try
             {
-                return this.notesRepository.GetRemainderNotes(notesModel);
+                return this.notesRepository.GetRemainderNotes(userId);
             }
             catch (Exception ex)
             {
@@ -255,13 +257,13 @@ namespace Manager.Manager
         /// <summary>
         /// Get Archive Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetArchiveNotes(NotesModel notesModel)
+        public List<NotesModel> GetArchiveNotes(int userId)
         {
             try
             {
-                return this.notesRepository.GetArchiveNotes(notesModel);
+                return this.notesRepository.GetArchiveNotes(userId);
             }
             catch (Exception ex)
             {
@@ -272,13 +274,13 @@ namespace Manager.Manager
         /// <summary>
         /// Get Trash Notes
         /// </summary>
-        /// <param name="notesModel">NotesModel notesModel</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
-        public List<NotesModel> GetTrashNotes(NotesModel notesModel)
+        public List<NotesModel> GetTrashNotes(int userId)
         {
             try
             {
-                return this.notesRepository.GetTrashNotes(notesModel);
+                return this.notesRepository.GetTrashNotes(userId);
             }
             catch (Exception ex)
             {
