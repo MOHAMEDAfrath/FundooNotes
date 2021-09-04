@@ -6,6 +6,7 @@ namespace Repository.Repository
     using global::Repository.Interface;
     using Models;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class CollaboratorRepository: ICollaboratorRepository
@@ -74,6 +75,22 @@ namespace Repository.Repository
                 return "Cant Remove Collaborator";
             }
             catch(ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<string> GetCollaborator(int noteId)
+        {
+            try
+            {
+                var collaborators = this.userContext.Collaborators.Where(x=>x.NotesId == noteId).Select(x=>x.ColEmail).ToList();
+                if (collaborators.Count>0)
+                {
+                    return collaborators;
+                }
+                return null;
+            }catch(Exception ex)
             {
                 throw new Exception(ex.Message);
             }

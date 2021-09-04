@@ -40,5 +40,16 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+        public List<string> GetCollaborator(int noteId)
+        {
+            try
+            {
+                return this.collaboratorRepository.GetCollaborator(noteId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
