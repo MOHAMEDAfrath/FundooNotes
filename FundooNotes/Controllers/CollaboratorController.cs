@@ -32,5 +32,23 @@ namespace FundooNotes.Controllers
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
         }
+
+        [HttpDelete]
+        [Route("api/deleteCollaborator")]
+        public IActionResult RemoveCollaborator(int colId)
+        {
+            try
+            {
+                string result = this.collaboratorManager.RemoveCollaborator(colId);
+                if (result == "Removed Collaborator")
+                {
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

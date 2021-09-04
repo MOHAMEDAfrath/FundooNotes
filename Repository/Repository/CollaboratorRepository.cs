@@ -60,5 +60,23 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string RemoveCollaborator(int colId)
+        {
+            try
+            {
+                var colExists = this.userContext.Collaborators.Where(x => x.ColId == colId).SingleOrDefault();
+                if (colExists != null) {
+                    this.userContext.Collaborators.Remove(colExists);
+                    this.userContext.SaveChanges();
+                    return "Removed Collaborator";
+                }
+                return "Cant Remove Collaborator";
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
