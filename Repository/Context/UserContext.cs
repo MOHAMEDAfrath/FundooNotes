@@ -33,5 +33,7 @@ namespace Repository.Context
         ///  Gets or sets DatabaseSet for notes to manipulate user data
         /// </summary>
         public DbSet<NotesModel> Notes { get; set; }
+
+        public DbSet<CollaboratorModel> Collaborators { get; set; }
     }
 }

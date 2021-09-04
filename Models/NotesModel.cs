@@ -26,7 +26,7 @@ namespace Models
         /// Gets or sets foreign key
         /// </summary>
         [ForeignKey("UserId")]
-        public RegisterModel register { get; set; }
+        public RegisterModel Register { get; set; }
 
         /// <summary>
         /// Gets or sets the Notes ID.

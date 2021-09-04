@@ -46,6 +46,27 @@ namespace Repository.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Models.CollaboratorModel", b =>
+                {
+                    b.Property<int>("ColId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ColEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NotesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ColId");
+
+                    b.HasIndex("NotesId");
+
+                    b.ToTable("Collaborators");
+                });
+
             modelBuilder.Entity("Models.NotesModel", b =>
                 {
                     b.Property<int>("NotesId")
@@ -90,15 +111,26 @@ namespace Repository.Migrations
                     b.ToTable("Notes");
                 });
 
+            modelBuilder.Entity("Models.CollaboratorModel", b =>
+                {
+                    b.HasOne("Models.NotesModel", "notesModel")
+                        .WithMany()
+                        .HasForeignKey("NotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("notesModel");
+                });
+
             modelBuilder.Entity("Models.NotesModel", b =>
                 {
-                    b.HasOne("FundooNotes.Models.RegisterModel", "register")
+                    b.HasOne("FundooNotes.Models.RegisterModel", "Register")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("register");
+                    b.Navigation("Register");
                 });
 #pragma warning restore 612, 618
         }
