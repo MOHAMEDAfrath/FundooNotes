@@ -142,7 +142,7 @@ namespace FundooNotes.Controllers
                 {
                     return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = "Retrieved Label", Data = result});
                 }
-                return this.Ok(new ResponseModel<List<string>>() { Status = false, Message = "Retrieved Label Failed" });
+                return this.BadRequest(new ResponseModel<List<string>>() { Status = false, Message = "Retrieved Label Failed" });
             }
             catch (Exception ex)
             {
@@ -150,5 +150,23 @@ namespace FundooNotes.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/GetNotesByLabel")]
+        public IActionResult GetNotesByLabel(int userId,string labelName)
+        {
+            try
+            {
+                var result = this.LabelManager.DisplayNotesBasedOnLabel(userId,labelName);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<List<NotesModel>>() { Status = true, Message = "Retrieved Notes", Data = result });
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Retrieved Notes Failed" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
     }
 }

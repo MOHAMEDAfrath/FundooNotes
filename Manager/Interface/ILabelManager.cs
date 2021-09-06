@@ -22,5 +22,7 @@ namespace Manager.Interface
         string DeleteALabelFromNote(LabelModel labelModel);
 
         List<string> GetLabelByNote(int notesId);
+
+        List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName);
     }
 }

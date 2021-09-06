@@ -19,5 +19,7 @@ namespace Repository.Interface
 
         List<string> GetLabelByNote(int notesId);
 
+        List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName);
+
     }
 }

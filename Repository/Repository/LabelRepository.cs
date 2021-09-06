@@ -164,5 +164,25 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName)
+        {
+            try
+            {
+                var exists = (from notes in this.UserContext.Notes
+                             join label in this.UserContext.Labels
+                             on notes.NotesId equals label.NotesId
+                             where userId == label.UserId && label.LabelName == labelName select notes).ToList();
+                if(exists.Count > 0)
+                {
+                    return exists;
+                }
+                return null;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

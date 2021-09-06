@@ -98,5 +98,16 @@ namespace Manager.Manager
             }
 
         }
+        public List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName)
+        {
+            try
+            {
+                return this.LabelRepository.DisplayNotesBasedOnLabel(userId, labelName);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
