@@ -9,14 +9,13 @@ namespace Repository.Repository
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
     using Models;
     using global::Repository.Context;
     using global::Repository.Interface;
-    using System.IO;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Configuration;
-    using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
 
     /// <summary>
     /// class NotesRepository
@@ -28,13 +27,17 @@ namespace Repository.Repository
         /// </summary>
         public readonly UserContext UserContext;
 
+        /// <summary>
+        /// IConfiguration Configuration;
+        /// </summary>
         public readonly IConfiguration Configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotesRepository"/> class
         /// </summary>
         /// <param name="userContext">UserContext userContext</param>
-        public NotesRepository(UserContext userContext,IConfiguration configuration)
+        /// <param name="configuration">IConfiguration configuration</param>
+        public NotesRepository(UserContext userContext, IConfiguration configuration)
         {
             this.UserContext = userContext;
             this.Configuration = configuration;
@@ -496,6 +499,12 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Adds Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="image">IFormFile image</param>
+        /// <returns>returns string after successfully adding image</returns>
         public string AddImage(int notesId, IFormFile image)
         {
             try
@@ -503,12 +512,10 @@ namespace Repository.Repository
                 var exist = this.UserContext.Notes.Find(notesId);
                 if (exist != null)
                 {
-                    Account account = new Account
-                    (
+                    Account account = new Account(
                         this.Configuration["CloudinaryAccount:CloudName"],
                         this.Configuration["CloudinaryAccount:APIKey"],
-                        this.Configuration["CloudinaryAccount:APISecret"]
-                    );
+                        this.Configuration["CloudinaryAccount:APISecret"]);
                     Cloudinary cloudinary = new Cloudinary(account);
                     var uploadFile = new ImageUploadParams()
                     {
@@ -521,29 +528,36 @@ namespace Repository.Repository
                     this.UserContext.SaveChanges();
                     return "Image added";
                 }
+
                 return "Not Notes Present";
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Removes Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns string after successfully removing image</returns>
         public string RemoveImage(int notesId)
         {
             try
             {
                 var exist = this.UserContext.Notes.Find(notesId);
-                if(exist != null)
+                if (exist != null)
                 {
                     exist.Image = null;
                     this.UserContext.Notes.Update(exist);
                     this.UserContext.SaveChanges();
                     return "Image removed";
                 }
+
                 return "No note present";
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }

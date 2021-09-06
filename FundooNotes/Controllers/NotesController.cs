@@ -11,14 +11,14 @@ namespace FundooNotes.Controllers
     using System.Collections.Generic;
     using Manager.Interface;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
-    using Microsoft.AspNetCore.Http;
-
+ 
     /// <summary>
     /// NotesController class
     /// </summary>
-    //[Authorize]
+    [Authorize]
     public class NotesController : ControllerBase
     {
         /// <summary>
@@ -445,25 +445,37 @@ namespace FundooNotes.Controllers
             }
         }
 
+        /// <summary>
+        /// Adds Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="image">IFormFile image</param>
+        /// <returns>returns string after successfully adding image</returns>
         [HttpPut]
         [Route("api/addImage")]
-        public IActionResult addImage(int notesId, IFormFile image)
+        public IActionResult AddImage(int notesId, IFormFile image)
         {
             try
             {
                 string result = this.notesManager.AddImage(notesId, image);
-                if(result=="Image added")
+                if (result == "Image added")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
+
                 return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = true, Message = ex.Message });
             }
         }
 
+        /// <summary>
+        /// Removes Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns string after successfully removing image</returns>
         [HttpPut]
         [Route("api/removeImage")]
         public IActionResult RemoveImage(int notesId)
@@ -471,10 +483,11 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.notesManager.RemoveImage(notesId);
-                if(result == "Image removed")
+                if (result == "Image removed")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
+
                 return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
             }
             catch (Exception ex)

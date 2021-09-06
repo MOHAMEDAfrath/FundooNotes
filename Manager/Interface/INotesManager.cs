@@ -124,8 +124,19 @@ namespace Manager.Interface
         /// <returns>returns list as result</returns>
         List<NotesModel> GetTrashNotes(int userId);
 
+        /// <summary>
+        /// Adds Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="image">IFormFile image</param>
+        /// <returns>returns string after successfully adding image</returns>
         string AddImage(int notesId, IFormFile image);
 
+        /// <summary>
+        /// Removes Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns string after successfully removing image</returns>
         string RemoveImage(int notesId);
     }
 }

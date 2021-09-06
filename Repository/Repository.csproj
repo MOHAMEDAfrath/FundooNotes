@@ -31,6 +31,10 @@
       <ExcludeFromSourceAnalysis>False</ExcludeFromSourceAnalysis>
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
+    <Compile Update="Repository\NotesRepository.cs">
+      <ExcludeFromSourceAnalysis>False</ExcludeFromSourceAnalysis>
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
   </ItemGroup>
 
 </Project>

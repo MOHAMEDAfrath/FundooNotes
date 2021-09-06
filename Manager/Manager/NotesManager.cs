@@ -290,24 +290,36 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Adds Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <param name="image">IFormFile image</param>
+        /// <returns>returns string after successfully adding image</returns>
         public string AddImage(int notesId, IFormFile image)
         {
             try
             {
                 return this.notesRepository.AddImage(notesId, image);
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Removes Image
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns string after successfully removing image</returns>
         public string RemoveImage(int notesId)
         {
             try
             {
                 return this.notesRepository.RemoveImage(notesId);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
