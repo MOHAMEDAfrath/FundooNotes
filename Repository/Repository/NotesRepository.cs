@@ -257,10 +257,29 @@ namespace Repository.Repository
         {
             try
             {
-                var exists = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Is_Archive == false).ToList();
-                if (exists.Count > 0)
+                var userNotes = new List<NotesModel>();
+                var userEmail = this.UserContext.Users.Where(x => x.UserId == userId).Select(x => x.EmailId).SingleOrDefault();
+                 userNotes = (from notes in this.UserContext.Notes
+                                join colab in this.UserContext.Collaborators
+                                on notes.NotesId equals colab.NotesId
+                                where colab.ColEmail == userEmail
+                                select notes).ToList();
+                if (userNotes.Count > 0)
                 {
-                    return exists;
+                    var notes = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Is_Archive == false).ToList();
+                    foreach (var note in notes)
+                    {
+                        userNotes.Add(note);
+                    }
+                }
+                else
+                {
+                    userNotes = this.UserContext.Notes.Where(x => x.UserId == userId && x.Is_Trash == false && x.Is_Archive == false).ToList();
+                }
+
+                if (userNotes.Count > 0)
+                {
+                    return userNotes;
                 }
 
                 return null;
