@@ -36,5 +36,17 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        public string EditLabel(int userId, string labelName, string newLabelName)
+        {
+            try
+            {
+                return this.LabelRepository.EditLabel(userId, labelName, newLabelName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

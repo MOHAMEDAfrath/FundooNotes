@@ -50,5 +50,34 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public string EditLabel(int userId, string labelName, string newLabelName)
+        {
+            try
+            {
+                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelName && x.UserId == userId).ToList();
+                var labelExists = this.UserContext.Labels.Where(x => x.LabelName == newLabelName && x.UserId == userId).ToList();
+                if (exist.Count > 0)
+                {
+                    exist.ForEach(x => x.LabelName = newLabelName);
+                    this.UserContext.Labels.UpdateRange(exist);
+                    this.UserContext.SaveChanges();
+                    if(labelExists.Count > 0)
+                    {
+                        return "Merge the '" + labelName + "' label with the '" 
+                            + newLabelName + "' label? All notes labeled with '" + labelName 
+                            + "' will be labeled with '" + newLabelName + "', and the '" + labelName +
+                            "' label will be deleted.";
+                    }
+
+                    return "Updated Label";
+                }
+
+                return "Label not present";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
