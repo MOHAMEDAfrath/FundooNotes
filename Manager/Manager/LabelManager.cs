@@ -1,19 +1,42 @@
-﻿using Manager.Interface;
-using Models;
-using Repository.Interface;
-using System;
-using System.Collections.Generic;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LabelManager.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Manager.Manager
 {
+    using System;
+    using System.Collections.Generic;
+    using global::Manager.Interface;
+    using Models;
+    using Repository.Interface;
+
+    /// <summary>
+    /// class LabelManager
+    /// </summary>
     public class LabelManager : ILabelManager
     {
+        /// <summary>
+        /// ILabelRepository LabelRepository;
+        /// </summary>
         public readonly ILabelRepository LabelRepository;
 
+        /// <summary>
+        ///  Initializes a new instance of the <see cref="LabelManager"/> class and create a object of ILabelRepository on runtime
+        /// </summary>
+        /// <param name="labelRepository">ILabelRepository labelRepository</param>
         public LabelManager(ILabelRepository labelRepository)
         {
             this.LabelRepository = labelRepository;
         }
+
+        /// <summary>
+        /// Adds label
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns string after successfully adding label without notesId</returns>
         public string AddLabel(LabelModel labelModel)
         {
             try
@@ -26,18 +49,31 @@ namespace Manager.Manager
             }
         }
 
-        public string DeleteLabel(int userId, string LabelName)
+        /// <summary>
+        /// Delete a Label from Home
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <returns>returns a string after deleting from home</returns>
+        public string DeleteLabel(int userId, string labelName)
         {
             try
             {
-                return this.LabelRepository.DeleteLabel(userId, LabelName);
+                return this.LabelRepository.DeleteLabel(userId, labelName);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Edit label name
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <param name="newLabelName">string newLabelName</param>
+        /// <returns>returns a string after editing label</returns>
         public string EditLabel(int userId, string labelName, string newLabelName)
         {
             try
@@ -50,6 +86,11 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Gets Label Based on userId
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <returns>returns a list for getting labels based on userID</returns>
         public List<string> GetLabel(int userId)
         {
             try
@@ -62,6 +103,11 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Add Label from Notes
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns a string after adding label from notes</returns>
         public string AddNotesLabel(LabelModel labelModel)
         {
             try
@@ -74,18 +120,28 @@ namespace Manager.Manager
             }
         }
 
+        /// <summary>
+        /// Delete a label from note
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns a string after deleting a label from note</returns>
         public string DeleteALabelFromNote(LabelModel labelModel)
         {
             try
             {
                 return this.LabelRepository.DeleteALabelFromNote(labelModel);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Get Label By Notes
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns a list of label by notes</returns>
         public List<string> GetLabelByNote(int notesId)
         {
             try
@@ -96,15 +152,21 @@ namespace Manager.Manager
             {
                 throw new Exception(ex.Message);
             }
-
         }
+
+        /// <summary>
+        /// Display notes for a particular label
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <returns>returns a list of notes based on label</returns>
         public List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName)
         {
             try
             {
                 return this.LabelRepository.DisplayNotesBasedOnLabel(userId, labelName);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

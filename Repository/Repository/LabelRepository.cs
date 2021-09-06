@@ -1,56 +1,96 @@
-﻿using Models;
-using Repository.Context;
-using Repository.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="LabelRepository.cs" company="Bridgelabz">
+//   Copyright © 2021 Company="BridgeLabz"
+// </copyright>
+// <creator name="Mohamed Afrath S"/>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Repository.Repository
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Models;
+    using global::Repository.Context;
+    using global::Repository.Interface;
+
+    /// <summary>
+    /// class LabelRepository 
+    /// </summary>
     public class LabelRepository : ILabelRepository
     {
+        /// <summary>
+        /// UserContext UserContext
+        /// </summary>
         public readonly UserContext UserContext;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LabelRepository"/> class and create a object of UserContext on runtime
+        /// </summary>
+        /// <param name="userContext">(UserContext userContext</param>
         public LabelRepository(UserContext userContext)
         {
             this.UserContext = userContext;
         }
 
+        /// <summary>
+        /// Adds label
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns string after successfully adding label without notesId</returns>
         public string AddLabel(LabelModel labelModel)
         {
             try
             {
-                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId==labelModel.UserId).SingleOrDefault();
-                if (exist == null) {
+                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId).SingleOrDefault();
+                if (exist == null) 
+                {
                     this.UserContext.Labels.Add(labelModel);
                     this.UserContext.SaveChanges();
                     return "Added Label";
                 }
-                return "Label Already Exists";
-            }
-            catch(ArgumentNullException ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
 
-        public string DeleteLabel(int userId,string LabelName)
-        {
-            try
-            {
-                var exists = this.UserContext.Labels.Where(x => x.LabelName == LabelName && x.UserId == userId).ToList();
-                if (exists.Count>0)
-                {
-                    this.UserContext.Labels.RemoveRange(exists);
-                    this.UserContext.SaveChanges();
-                    return "Deleted Label";
-                }
-                return "No Label Present";
+                return "Label Already Exists";
             }
             catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Delete a Label from Home
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <returns>returns a string after deleting from home</returns>
+        public string DeleteLabel(int userId, string labelName)
+        {
+            try
+            {
+                var exists = this.UserContext.Labels.Where(x => x.LabelName == labelName && x.UserId == userId).ToList();
+                if (exists.Count > 0)
+                {
+                    this.UserContext.Labels.RemoveRange(exists);
+                    this.UserContext.SaveChanges();
+                    return "Deleted Label";
+                }
+
+                    return "No Label Present";
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Edit label name
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <param name="newLabelName">string newLabelName</param>
+        /// <returns>returns a string after editing label</returns>
         public string EditLabel(int userId, string labelName, string newLabelName)
         {
             try
@@ -62,7 +102,7 @@ namespace Repository.Repository
                     exist.ForEach(x => x.LabelName = newLabelName);
                     this.UserContext.Labels.UpdateRange(exist);
                     this.UserContext.SaveChanges();
-                    if(labelExists.Count > 0)
+                    if (labelExists.Count > 0)
                     {
                         return "Merge the '" + labelName + "' label with the '" 
                             + newLabelName + "' label? All notes labeled with '" + labelName 
@@ -81,15 +121,21 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Gets Label Based on userId
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <returns>returns a list for getting labels based on userID</returns>
         public List<string> GetLabel(int userId)
         {
             try
             {
-                var exist = this.UserContext.Labels.Where(x => x.UserId == userId).Select(x =>x.LabelName).Distinct().ToList();
-                if(exist.Count > 0)
+                var exist = this.UserContext.Labels.Where(x => x.UserId == userId).Select(x => x.LabelName).Distinct().ToList();
+                if (exist.Count > 0)
                 {
                     return exist;
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -98,6 +144,11 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Add Label from Notes
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns a string after adding label from notes</returns>
         public string AddNotesLabel(LabelModel labelModel)
         {
             try
@@ -106,17 +157,23 @@ namespace Repository.Repository
                 this.UserContext.SaveChanges();
                 return "Added Label To Note";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Delete a label from note
+        /// </summary>
+        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <returns>returns a string after deleting a label from note</returns>
         public string DeleteALabelFromNote(LabelModel labelModel)
         {
             try
             {
-                var existsLabel = this.UserContext.Labels.Where(x=>x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).ToList();
-                if(existsLabel.Count == 1)
+                var existsLabel = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).ToList();
+                if (existsLabel.Count == 1)
                 {
                     var exists = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId && x.NotesId == labelModel.NotesId).SingleOrDefault();
                     this.UserContext.Labels.Remove(exists);
@@ -126,9 +183,9 @@ namespace Repository.Repository
                 else
                 {
                     var temp = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId).ToList();
-                    if(temp.Count == 1)
+                    if (temp.Count == 1)
                     {
-                        var exists = this.UserContext.Labels.Where(x=>x.LabelId == labelModel.LabelId).SingleOrDefault();
+                        var exists = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId).SingleOrDefault();
                         exists.NotesId = null;
                         this.UserContext.Labels.Update(exists);
                         this.UserContext.SaveChanges();
@@ -141,22 +198,29 @@ namespace Repository.Repository
                         this.UserContext.SaveChanges();
                         return "Deleted Label From Note";
                     }
-
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Get Label By Notes
+        /// </summary>
+        /// <param name="notesId">integer notesId</param>
+        /// <returns>returns a list of label by notes</returns>
         public List<string> GetLabelByNote(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Labels.Where(x=>x.NotesId == notesId).Select(x=>x.LabelName).ToList();
+                var exists = this.UserContext.Labels.Where(x => x.NotesId == notesId).Select(x => x.LabelName).ToList();
                 if (exists.Count > 0)
                 {
                     return exists;
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -165,6 +229,12 @@ namespace Repository.Repository
             }
         }
 
+        /// <summary>
+        /// Display notes for a particular label
+        /// </summary>
+        /// <param name="userId">integer userId</param>
+        /// <param name="labelName">string labelName</param>
+        /// <returns>returns a list of notes based on label</returns>
         public List<NotesModel> DisplayNotesBasedOnLabel(int userId, string labelName)
         {
             try
@@ -172,14 +242,16 @@ namespace Repository.Repository
                 var exists = (from notes in this.UserContext.Notes
                              join label in this.UserContext.Labels
                              on notes.NotesId equals label.NotesId
-                             where userId == label.UserId && label.LabelName == labelName select notes).ToList();
-                if(exists.Count > 0)
+                             where userId == label.UserId && label.LabelName == labelName 
+                              select notes).ToList();
+                if (exists.Count > 0)
                 {
                     return exists;
                 }
+
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
