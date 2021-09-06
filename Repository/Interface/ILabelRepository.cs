@@ -1,6 +1,9 @@
-﻿namespace Repository.Interface
+﻿using Models;
+
+namespace Repository.Interface
 {
     public interface ILabelRepository
     {
+        string AddLabel(LabelModel labelModel);
     }
 }

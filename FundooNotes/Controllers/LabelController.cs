@@ -1,5 +1,6 @@
 ﻿using Manager.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,24 @@ namespace FundooNotes.Controllers
         {
             this.LabelManager = labelManager;
         }
-        public IActionResult Index()
+        
+        [HttpPost]
+        [Route("api/addLabel")]
+        public IActionResult AddLabel([FromBody] LabelModel label)
         {
-            return Ok();
+            try
+            {
+                string result = this.LabelManager.AddLabel(label);
+                if(result == "Added Label")
+                {
+                    return this.Ok(new ResponseModel<string>() {Status = true, Message=result });
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
         }
     }
 }
