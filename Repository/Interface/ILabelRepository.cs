@@ -1,4 +1,5 @@
 ﻿using Models;
+using System.Collections.Generic;
 
 namespace Repository.Interface
 {
@@ -9,5 +10,7 @@ namespace Repository.Interface
         string DeleteLabel(int userId, string LabelName);
 
         string EditLabel(int userId, string labelName, string newLabelName);
+
+        List<string> GetLabel(int userId);
     }
 }

@@ -62,7 +62,7 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.LabelManager.EditLabel(userId, labelName, newLabelName);
-                if(result == "Updated Label")
+                if(result == "Label not present")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -72,6 +72,26 @@ namespace FundooNotes.Controllers
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
+        }
+
+        [HttpPost]
+        [Route("api/GetLabel")]
+        public IActionResult GetLabel(int userId)
+        {
+            try
+            {
+                var result = this.LabelManager.GetLabel(userId);
+                if (result != null)
+                {
+                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = "Retrieved Success", Data = result });
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Failed" });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+            
         }
     }
 }

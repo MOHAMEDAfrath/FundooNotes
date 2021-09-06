@@ -2,6 +2,7 @@
 using Repository.Context;
 using Repository.Interface;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Repository.Repository
@@ -78,6 +79,24 @@ namespace Repository.Repository
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public List<string> GetLabel(int userId)
+        {
+            try
+            {
+                var exist = this.UserContext.Labels.Where(x => x.UserId == userId).Select(x =>x.LabelName).Distinct().ToList();
+                if(exist.Count > 0)
+                {
+                    return exist;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

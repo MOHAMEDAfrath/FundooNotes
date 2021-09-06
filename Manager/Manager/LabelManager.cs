@@ -2,6 +2,7 @@
 using Models;
 using Repository.Interface;
 using System;
+using System.Collections.Generic;
 
 namespace Manager.Manager
 {
@@ -42,6 +43,18 @@ namespace Manager.Manager
             try
             {
                 return this.LabelRepository.EditLabel(userId, labelName, newLabelName);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<string> GetLabel(int userId)
+        {
+            try
+            {
+                return this.LabelRepository.GetLabel(userId);
             }
             catch (Exception ex)
             {
