@@ -61,5 +61,29 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        public string AddNotesLabel(LabelModel labelModel)
+        {
+            try
+            {
+                return this.LabelRepository.AddNotesLabel(labelModel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string DeleteALabelFromNote(LabelModel labelModel)
+        {
+            try
+            {
+                return this.LabelRepository.DeleteALabelFromNote(labelModel);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

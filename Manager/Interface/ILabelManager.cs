@@ -17,5 +17,8 @@ namespace Manager.Interface
 
         List<string> GetLabel(int userId);
 
+        string AddNotesLabel(LabelModel labelModel);
+
+        string DeleteALabelFromNote(LabelModel labelModel);
     }
 }

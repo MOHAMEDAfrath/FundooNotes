@@ -96,7 +96,57 @@ namespace Repository.Repository
             {
                 throw new Exception(ex.Message);
             }
+        }
 
+        public string AddNotesLabel(LabelModel labelModel)
+        {
+            try
+            {
+                this.UserContext.Labels.Add(labelModel);
+                this.UserContext.SaveChanges();
+                return "Added Label To Note";
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public string DeleteALabelFromNote(LabelModel labelModel)
+        {
+            try
+            {
+                var existsLabel = this.UserContext.Labels.Where(x=>x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).ToList();
+                if(existsLabel.Count == 1)
+                {
+                    var exists = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId && x.NotesId == labelModel.NotesId).SingleOrDefault();
+                    this.UserContext.Labels.Remove(exists);
+                    this.UserContext.SaveChanges();
+                    return "Deleted Label From Note";
+                }
+                else
+                {
+                    var temp = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId).ToList();
+                    if(temp.Count == 1)
+                    {
+                        var exists = this.UserContext.Labels.Where(x=>x.LabelId == labelModel.LabelId).SingleOrDefault();
+                        exists.NotesId = null;
+                        this.UserContext.Labels.Update(exists);
+                        this.UserContext.SaveChanges();
+                        return "Deleted Label From Note";
+                    }
+                    else
+                    {
+                        var exists = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId).SingleOrDefault();
+                        this.UserContext.Labels.Remove(exists);
+                        this.UserContext.SaveChanges();
+                        return "Deleted Label From Note";
+                    }
+
+                }
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

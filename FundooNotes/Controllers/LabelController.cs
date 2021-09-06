@@ -91,7 +91,45 @@ namespace FundooNotes.Controllers
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }
-            
         }
+
+        [HttpPost]
+        [Route("api/AddLabelToNote")]
+        public IActionResult AddNotesLabel([FromBody] LabelModel labelModel)
+        {
+            try
+            {
+                string result = this.LabelManager.AddNotesLabel(labelModel);
+                if(result == "Added Label To Note")
+                {
+                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = result});
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch (Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/DeleteaLabelFromNote")]
+        public IActionResult DeleteaLabelFromNote([FromBody] LabelModel labelModel)
+        {
+            try
+            {
+                string result = this.LabelManager.DeleteALabelFromNote(labelModel);
+                if(result == "Deleted Label From Note")
+                {
+                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = result });
+                }
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+            }
+            catch(Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
     }
 }
