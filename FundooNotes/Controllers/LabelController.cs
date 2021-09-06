@@ -62,7 +62,7 @@ namespace FundooNotes.Controllers
             try
             {
                 string result = this.LabelManager.EditLabel(userId, labelName, newLabelName);
-                if(result == "Label not present")
+                if(result != "Label not present")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
@@ -121,11 +121,30 @@ namespace FundooNotes.Controllers
                 string result = this.LabelManager.DeleteALabelFromNote(labelModel);
                 if(result == "Deleted Label From Note")
                 {
-                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = result });
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
                 }
                 return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
             }
             catch(Exception ex)
+            {
+                return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [Route("api/GetLabelByNote")]
+        public IActionResult GetLabelByNoteId(int notesId)
+        {
+            try
+            {
+                var result = this.LabelManager.GetLabelByNote(notesId);
+                if(result != null)
+                {
+                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = "Retrieved Label", Data = result});
+                }
+                return this.Ok(new ResponseModel<List<string>>() { Status = false, Message = "Retrieved Label Failed" });
+            }
+            catch (Exception ex)
             {
                 return this.NotFound(new ResponseModel<string>() { Status = false, Message = ex.Message });
             }

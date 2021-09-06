@@ -148,5 +148,21 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+        public List<string> GetLabelByNote(int notesId)
+        {
+            try
+            {
+                var exists = this.UserContext.Labels.Where(x=>x.NotesId == notesId).Select(x=>x.LabelName).ToList();
+                if (exists.Count > 0)
+                {
+                    return exists;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

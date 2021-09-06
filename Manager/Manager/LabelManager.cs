@@ -85,5 +85,18 @@ namespace Manager.Manager
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<string> GetLabelByNote(int notesId)
+        {
+            try
+            {
+                return this.LabelRepository.GetLabelByNote(notesId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }
