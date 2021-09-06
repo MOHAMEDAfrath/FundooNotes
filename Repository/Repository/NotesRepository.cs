@@ -12,6 +12,11 @@ namespace Repository.Repository
     using Models;
     using global::Repository.Context;
     using global::Repository.Interface;
+    using System.IO;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
 
     /// <summary>
     /// class NotesRepository
@@ -23,13 +28,16 @@ namespace Repository.Repository
         /// </summary>
         public readonly UserContext UserContext;
 
+        public readonly IConfiguration Configuration;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NotesRepository"/> class
         /// </summary>
         /// <param name="userContext">UserContext userContext</param>
-        public NotesRepository(UserContext userContext)
+        public NotesRepository(UserContext userContext,IConfiguration configuration)
         {
             this.UserContext = userContext;
+            this.Configuration = configuration;
         }
 
         /// <summary>
@@ -483,6 +491,39 @@ namespace Repository.Repository
                 return null;
             }
             catch (ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string AddImage(int notesId, IFormFile image)
+        {
+            try
+            {
+                var exist = this.UserContext.Notes.Find(notesId);
+                if (exist != null)
+                {
+                    Account account = new Account
+                    (
+                        this.Configuration["CloudinaryAccount:CloudName"],
+                        this.Configuration["CloudinaryAccount:APIKey"],
+                        this.Configuration["CloudinaryAccount:APISecret"]
+                    );
+                    Cloudinary cloudinary = new Cloudinary(account);
+                    var uploadFile = new ImageUploadParams()
+                    {
+                        File = new FileDescription(image.FileName, image.OpenReadStream())
+                    };
+                    var uploadResult = cloudinary.Upload(uploadFile);
+                    var uploadedImage = uploadResult.Url.ToString();
+                    exist.Image = uploadedImage;
+                    this.UserContext.Notes.Update(exist);
+                    this.UserContext.SaveChanges();
+                    return "Image added";
+                }
+                return "Not Notes Present";
+            }
+            catch(ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
             }

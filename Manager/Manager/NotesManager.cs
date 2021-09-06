@@ -8,7 +8,9 @@ namespace Manager.Manager
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using global::Manager.Interface;
+    using Microsoft.AspNetCore.Http;
     using Models;
     using Repository.Interface;
 
@@ -283,6 +285,17 @@ namespace Manager.Manager
                 return this.notesRepository.GetTrashNotes(userId);
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public string AddImage(int notesId, IFormFile image)
+        {
+            try
+            {
+                return this.notesRepository.AddImage(notesId, image);
+            }catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

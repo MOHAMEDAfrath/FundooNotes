@@ -7,6 +7,8 @@
 namespace Repository.Interface
 {
     using System.Collections.Generic;
+    using System.IO;
+    using Microsoft.AspNetCore.Http;
     using Models;
     
     /// <summary>
@@ -120,5 +122,7 @@ namespace Repository.Interface
         /// <param name="userId">integer userId</param>
         /// <returns>returns list as result</returns>
         List<NotesModel> GetTrashNotes(int userId);
+
+        string AddImage(int notesId, IFormFile image);
     }
 }
