@@ -528,5 +528,25 @@ namespace Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public string RemoveImage(int notesId)
+        {
+            try
+            {
+                var exist = this.UserContext.Notes.Find(notesId);
+                if(exist != null)
+                {
+                    exist.Image = null;
+                    this.UserContext.Notes.Update(exist);
+                    this.UserContext.SaveChanges();
+                    return "Image removed";
+                }
+                return "No note present";
+            }
+            catch(ArgumentNullException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

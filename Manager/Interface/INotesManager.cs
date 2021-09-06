@@ -125,5 +125,7 @@ namespace Manager.Interface
         List<NotesModel> GetTrashNotes(int userId);
 
         string AddImage(int notesId, IFormFile image);
+
+        string RemoveImage(int notesId);
     }
 }
