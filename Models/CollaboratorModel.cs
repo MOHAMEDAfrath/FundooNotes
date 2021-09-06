@@ -36,6 +36,7 @@ namespace Models
         ///  Gets or sets ColEmail
         /// </summary>
         [Required]
+        [RegularExpression(@"(^[a-z]+)(([\. \+ \-]?[a-z A-Z 0-9])*)@(([0-9 a-z]+[\.]+[a-z]{3})+([\.]+[a-z]{2,3})?$)", ErrorMessage = "Invalid Email")]
         public string ColEmail { get; set; }
     }
 }

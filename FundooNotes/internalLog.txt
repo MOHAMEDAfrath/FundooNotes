@@ -196,3 +196,39 @@
 2021-09-06 13:24:22.5167 Info Adding target FileTarget(Name=alldata)
 2021-09-06 13:24:22.5308 Info Adding target FileTarget(Name=otherFile-web)
 2021-09-06 13:24:22.5760 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\nlog.config
+2021-09-06 13:58:22.9122 Info Message Template Auto Format enabled
+2021-09-06 13:58:22.9122 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-06 13:58:22.9669 Info Adding target FileTarget(Name=alldata)
+2021-09-06 13:58:22.9682 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-06 13:58:22.9902 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-06 13:58:23.0046 Info Configuration initialized.
+2021-09-06 13:58:23.0046 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-06 13:58:23.9904 Info AppDomain Shutting down. Logger closing...
+2021-09-06 13:58:24.0046 Info Logger has been shut down.
+2021-09-06 13:58:34.1794 Info Message Template Auto Format enabled
+2021-09-06 13:58:34.1860 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-06 13:58:34.2263 Info Adding target FileTarget(Name=alldata)
+2021-09-06 13:58:34.2263 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-06 13:58:34.2469 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-06 13:58:34.2583 Info Configuration initialized.
+2021-09-06 13:58:34.2583 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-06 13:58:36.5944 Info AppDomain Shutting down. Logger closing...
+2021-09-06 13:58:36.6142 Info Logger has been shut down.
+2021-09-06 14:32:49.6849 Info Message Template Auto Format enabled
+2021-09-06 14:32:49.6898 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-06 14:32:49.7287 Info Adding target FileTarget(Name=alldata)
+2021-09-06 14:32:49.7287 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-06 14:32:49.7483 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-06 14:32:49.7589 Info Configuration initialized.
+2021-09-06 14:32:49.7589 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-06 14:32:50.4752 Info AppDomain Shutting down. Logger closing...
+2021-09-06 14:32:50.4840 Info Logger has been shut down.
+2021-09-06 14:33:05.0800 Info Message Template Auto Format enabled
+2021-09-06 14:33:05.0800 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-06 14:33:05.1274 Info Adding target FileTarget(Name=alldata)
+2021-09-06 14:33:05.1274 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-06 14:33:05.1497 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-06 14:33:05.1609 Info Configuration initialized.
+2021-09-06 14:33:05.1609 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-06 14:33:07.0747 Info AppDomain Shutting down. Logger closing...
+2021-09-06 14:33:07.0839 Info Logger has been shut down.

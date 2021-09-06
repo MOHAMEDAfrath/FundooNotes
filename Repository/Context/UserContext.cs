@@ -38,5 +38,8 @@ namespace Repository.Context
         ///  Gets or sets DatabaseSet for Collaborators to manipulate user data
         /// </summary>
         public DbSet<CollaboratorModel> Collaborators { get; set; }
+
+        public DbSet<LabelModel> Labels { get; set; }
+
     }
 }
