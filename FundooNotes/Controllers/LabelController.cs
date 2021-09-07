@@ -163,7 +163,7 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Delete a label from note
         /// </summary>
-        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <param name="labelId">integer labelId</param>
         /// <returns>returns a string after deleting a label from note</returns>
         [HttpPost]
         [Route("api/DeleteaLabelFromNote")]

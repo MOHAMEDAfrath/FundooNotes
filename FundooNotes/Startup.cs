@@ -7,26 +7,25 @@
 
 namespace FundooNotes
 {
+    using System.Text;
     using FundooNotes.Managers.Interface;
     using FundooNotes.Managers.Manager;
     using FundooNotes.Repository.Interface;
+    using Manager.Interface;
+    using Manager.Manager;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.IdentityModel.Tokens;
+    using Microsoft.OpenApi.Models;
     using global::Repository.Context;
-    using Manager.Interface;
-    using Manager.Manager;
     using global::Repository.Interface;
     using global::Repository.Repository;
-    using Microsoft.OpenApi.Models;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.IdentityModel.Tokens;
-    using System.Text;
-    using System;
-
+    
     /// <summary>
     /// class start up starts first when the application starts
     /// </summary>
@@ -65,9 +64,11 @@ namespace FundooNotes
             services.AddTransient<ILabelRepository, LabelRepository>();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1.0", new OpenApiInfo { Title="Fundoo Notes",Description="Manage Notes",Version="Lastest Stable"});
-                // To Enable authorization using Swagger (JWT)  
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                c.SwaggerDoc("v1.0", new OpenApiInfo { Title = "Fundoo Notes", Description = "Manage Notes", Version = "Lastest Stable" });
+                //// To Enable authorization using Swagger (JWT)  
+                c.AddSecurityDefinition(
+                    "Bearer", 
+                    new OpenApiSecurityScheme()
                 {
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,

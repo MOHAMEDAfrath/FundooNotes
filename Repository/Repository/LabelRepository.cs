@@ -42,7 +42,7 @@ namespace Repository.Repository
         {
             try
             {
-                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId ==null).SingleOrDefault();
+                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).SingleOrDefault();
                 if (exist == null) 
                 {
                     this.UserContext.Labels.Add(labelModel);
@@ -158,13 +158,14 @@ namespace Repository.Repository
                 {
                     int temp = Convert.ToInt32(labelModel.NotesId);
                     labelModel.NotesId = null;
-                    AddLabel(labelModel);
+                    this.AddLabel(labelModel);
                     labelModel.LabelId = 0;
                     labelModel.NotesId = temp;
                     this.UserContext.Labels.Add(labelModel);
                     this.UserContext.SaveChanges();
                     return "Added Label To Note";
                 }
+
                 return null;
             }
             catch (Exception ex)
@@ -176,21 +177,21 @@ namespace Repository.Repository
         /// <summary>
         /// Delete a label from note
         /// </summary>
-        /// <param name="labelModel">LabelModel labelModel</param>
+        /// <param name="labelId">integer labelId</param>
         /// <returns>returns a string after deleting a label from note</returns>
         public string DeleteALabelFromNote(int labelId)
         {
             try
             {
                 var existsLabel = this.UserContext.Labels.Where(x => x.LabelId == labelId).SingleOrDefault();
-                if(existsLabel != null)
+                if (existsLabel != null)
                 {
                     this.UserContext.Labels.Remove(existsLabel);
                     this.UserContext.SaveChanges();
                     return "Deleted Label From Note";
                 }
-                return "Failed";
-                
+
+                return "Failed";  
             }
             catch (Exception ex)
             {

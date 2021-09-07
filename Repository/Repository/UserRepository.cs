@@ -96,9 +96,9 @@ namespace FundooNotes
                 {
                     ConnectionMultiplexer connectionMultiplier = ConnectionMultiplexer.Connect("127.0.0.1:6379");
                     IDatabase database = connectionMultiplier.GetDatabase();
-                    database.StringSet("First Name",loginUser.FirstName);
-                    database.StringSet("Last Name",loginUser.LastName);
-                    database.StringSet("UserId",loginUser.UserId);
+                    database.StringSet("First Name", loginUser.FirstName);
+                    database.StringSet("Last Name", loginUser.LastName);
+                    database.StringSet("UserId", loginUser.UserId);
                     return loginUser.UserId + " , " + loginUser.FirstName + " , " + loginUser.LastName + " , " + loginUser.EmailId + " , " + loginUser.Password;
                 }
                 

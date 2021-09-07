@@ -94,7 +94,7 @@ namespace FundooNotes.Controllers
                     IDatabase database = connectionMultiplier.GetDatabase();
                     string firstName = database.StringGet("First Name");
                     string lastName = database.StringGet("Last Name");
-                    string UserId = database.StringGet("UserId");
+                    string userId = database.StringGet("UserId");
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!", Data = result + " , Token : " + token });
                 }
                 else
