@@ -475,3 +475,8 @@
 2021-09-07 14:11:43.7231 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
 2021-09-07 14:11:45.8414 Info AppDomain Shutting down. Logger closing...
 2021-09-07 14:11:45.8552 Info Logger has been shut down.
+2021-09-07 14:18:00.7331 Info Message Template Auto Format enabled
+2021-09-07 14:18:00.7640 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-07 14:18:00.8800 Info Adding target FileTarget(Name=alldata)
+2021-09-07 14:18:00.9003 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-07 14:18:00.9606 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\nlog.config
