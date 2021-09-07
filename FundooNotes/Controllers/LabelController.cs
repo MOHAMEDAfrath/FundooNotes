@@ -10,12 +10,14 @@ namespace FundooNotes.Controllers
     using System;
     using System.Collections.Generic;
     using Manager.Interface;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using global::Models;
-
+    
     /// <summary>
     /// class LabelController
     /// </summary>
+    [Authorize]
     public class LabelController : ControllerBase
     {
         /// <summary>

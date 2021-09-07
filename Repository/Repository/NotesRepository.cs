@@ -52,7 +52,7 @@ namespace Repository.Repository
         {
             try
             {
-                if (notesModel.Title != null || notesModel.Notes != null || notesModel.Remainder != null || notesModel.Collaborator != null)
+                if (notesModel.Title != null || notesModel.Notes != null || notesModel.Remainder != null)
                 {
                     this.UserContext.Notes.Add(notesModel);
                     this.UserContext.SaveChanges();

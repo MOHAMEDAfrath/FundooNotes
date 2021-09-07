@@ -18,7 +18,7 @@ namespace FundooNotes.Controllers
     /// <summary>
     /// NotesController class
     /// </summary>
-    //[Authorize]
+    [Authorize]
     public class NotesController : ControllerBase
     {
         /// <summary>

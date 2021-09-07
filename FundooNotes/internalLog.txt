@@ -457,3 +457,21 @@
 2021-09-07 13:51:49.6794 Info Adding target FileTarget(Name=alldata)
 2021-09-07 13:51:49.6922 Info Adding target FileTarget(Name=otherFile-web)
 2021-09-07 13:51:49.7691 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\nlog.config
+2021-09-07 14:11:31.4272 Info Message Template Auto Format enabled
+2021-09-07 14:11:31.4341 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-07 14:11:31.4866 Info Adding target FileTarget(Name=alldata)
+2021-09-07 14:11:31.4866 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-07 14:11:31.5104 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-07 14:11:31.5240 Info Configuration initialized.
+2021-09-07 14:11:31.5240 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-07 14:11:32.3532 Info AppDomain Shutting down. Logger closing...
+2021-09-07 14:11:32.3634 Info Logger has been shut down.
+2021-09-07 14:11:43.6303 Info Message Template Auto Format enabled
+2021-09-07 14:11:43.6372 Info Loading assembly: NLog.Web.AspNetCore
+2021-09-07 14:11:43.6881 Info Adding target FileTarget(Name=alldata)
+2021-09-07 14:11:43.6881 Info Adding target FileTarget(Name=otherFile-web)
+2021-09-07 14:11:43.7109 Info Validating config: TargetNames=alldata, otherFile-web, ConfigItems=45, FilePath=C:\Users\afrat\source\repos\FundooNotes\FundooNotes\bin\Debug\net5.0\NLog.config
+2021-09-07 14:11:43.7231 Info Configuration initialized.
+2021-09-07 14:11:43.7231 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.7.11.13229. Product version: 4.7.11+33ed3a9f86277651e93ddf39cda64a046a06778b. GlobalAssemblyCache: False
+2021-09-07 14:11:45.8414 Info AppDomain Shutting down. Logger closing...
+2021-09-07 14:11:45.8552 Info Logger has been shut down.

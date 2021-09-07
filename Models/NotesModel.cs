@@ -50,11 +50,6 @@ namespace Models
         public string Remainder { get; set; }
 
         /// <summary>
-        /// Gets or sets the Collaborator.
-        /// </summary>
-        public string Collaborator { get; set; }
-
-        /// <summary>
         /// Gets or sets the Color.
         /// </summary>
         public string Color { get; set; }
