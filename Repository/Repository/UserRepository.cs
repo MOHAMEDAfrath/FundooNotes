@@ -21,6 +21,7 @@ namespace FundooNotes
     using Microsoft.IdentityModel.Tokens;
     using global::Models;
     using global::Repository.Context;
+    using StackExchange.Redis;
 
     /// <summary>
     /// User Repository performs action with database,send email operation
@@ -91,10 +92,15 @@ namespace FundooNotes
             {
                   string encodedPassword = this.EncryptPassword(password);
                     var loginUser = this.UserContext.Users.Where(x => x.EmailId == email && x.Password == encodedPassword).FirstOrDefault();
-                    if (loginUser != null)
-                    { 
-                        return loginUser.UserId + " , " + loginUser.FirstName + " , " + loginUser.LastName + " , " + loginUser.EmailId + " , " + loginUser.Password;
-                    }
+                if (loginUser != null)
+                {
+                    ConnectionMultiplexer connectionMultiplier = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    IDatabase database = connectionMultiplier.GetDatabase();
+                    database.StringSet("First Name",loginUser.FirstName);
+                    database.StringSet("Last Name",loginUser.LastName);
+                    database.StringSet("UserId",loginUser.UserId);
+                    return loginUser.UserId + " , " + loginUser.FirstName + " , " + loginUser.LastName + " , " + loginUser.EmailId + " , " + loginUser.Password;
+                }
                 
                 return "Login Failed ,Invalid Credentials !";
             }

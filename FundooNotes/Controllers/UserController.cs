@@ -13,6 +13,7 @@ namespace FundooNotes.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using global::Models;
+    using StackExchange.Redis;
 
     /// <summary>
     /// User controller class for login,register,forgot password
@@ -89,6 +90,11 @@ namespace FundooNotes.Controllers
                 if (result != "Login Failed ,Invalid Credentials !")
                 {
                     this.logger.LogInformation(loginDetails.EmailId + " logged in successfully and the token generated is " + token);
+                    ConnectionMultiplexer connectionMultiplier = ConnectionMultiplexer.Connect("127.0.0.1:6379");
+                    IDatabase database = connectionMultiplier.GetDatabase();
+                    string firstName = database.StringGet("First Name");
+                    string lastName = database.StringGet("Last Name");
+                    string UserId = database.StringGet("UserId");
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = "Login Successful!", Data = result + " , Token : " + token });
                 }
                 else

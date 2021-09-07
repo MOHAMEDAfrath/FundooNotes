@@ -25,6 +25,7 @@ namespace FundooNotes
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.IdentityModel.Tokens;
     using System.Text;
+    using System;
 
     /// <summary>
     /// class start up starts first when the application starts
@@ -126,7 +127,6 @@ namespace FundooNotes
                 //// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -146,6 +146,7 @@ namespace FundooNotes
             {
                 c.SwaggerEndpoint("/swagger/v1.0/swagger.json", "My Demo API (V 1.0)");
             });
+          
         }
     }
 }
