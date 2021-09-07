@@ -311,14 +311,15 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="remainder">string remainder</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns IActionResult as status code on successful remainder set</returns>
         [HttpPost]
         [Route("api/Remainder")]
-        public IActionResult SetRemainder(int notesId, string remainder)
+        public IActionResult SetRemainder(int notesId, string remainder, int userId)
         {
             try
             {
-                string result = this.notesManager.SetRemainder(notesId, remainder);
+                string result = this.notesManager.SetRemainder(notesId, remainder, userId);
                 if (result == "Remainder Set")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
@@ -450,14 +451,15 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="image">IFormFile image</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string after successfully adding image</returns>
         [HttpPut]
         [Route("api/addImage")]
-        public IActionResult AddImage(int notesId, IFormFile image)
+        public IActionResult AddImage(int notesId, IFormFile image, int userId)
         {
             try
             {
-                string result = this.notesManager.AddImage(notesId, image);
+                string result = this.notesManager.AddImage(notesId, image, userId);
                 if (result == "Image added")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });

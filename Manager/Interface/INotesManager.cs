@@ -93,8 +93,9 @@ namespace Manager.Interface
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="remainder">string remainder</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string on successful remainder set</returns>
-        string SetRemainder(int notesId, string remainder);
+        string SetRemainder(int notesId, string remainder, int userId);
 
         /// <summary>
         /// Deletes remainder
@@ -129,8 +130,9 @@ namespace Manager.Interface
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="image">IFormFile image</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string after successfully adding image</returns>
-        string AddImage(int notesId, IFormFile image);
+        string AddImage(int notesId, IFormFile image, int userId);
 
         /// <summary>
         /// Removes Image

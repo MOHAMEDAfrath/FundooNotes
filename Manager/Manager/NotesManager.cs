@@ -209,12 +209,13 @@ namespace Manager.Manager
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="remainder">string remainder</param>
+        ///  <param name="userId">integer userId</param>
         /// <returns>returns string on successful remainder set</returns>
-        public string SetRemainder(int notesId, string remainder)
+        public string SetRemainder(int notesId, string remainder, int userId)
         {
             try
             {
-                return this.notesRepository.SetRemainder(notesId, remainder);
+                return this.notesRepository.SetRemainder(notesId, remainder, userId);
             }
             catch (Exception ex)
             {
@@ -295,12 +296,13 @@ namespace Manager.Manager
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="image">IFormFile image</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string after successfully adding image</returns>
-        public string AddImage(int notesId, IFormFile image)
+        public string AddImage(int notesId, IFormFile image, int userId)
         {
             try
             {
-                return this.notesRepository.AddImage(notesId, image);
+                return this.notesRepository.AddImage(notesId, image, userId);
             }
             catch (Exception ex)
             {

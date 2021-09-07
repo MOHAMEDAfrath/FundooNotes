@@ -52,7 +52,7 @@ namespace Repository.Repository
         {
             try
             {
-                if (notesModel.Title != null || notesModel.Notes != null || notesModel.Remainder != null)
+                if (notesModel!=null)
                 {
                     this.UserContext.Notes.Add(notesModel);
                     this.UserContext.SaveChanges();
@@ -382,8 +382,9 @@ namespace Repository.Repository
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="remainder">string remainder</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string on successful remainder set</returns>
-        public string SetRemainder(int notesId, string remainder)
+        public string SetRemainder(int notesId, string remainder, int userId)
         {
             try
             {
@@ -395,8 +396,13 @@ namespace Repository.Repository
                     this.UserContext.SaveChanges();
                     return "Remainder Set"; 
                 }
-
-                return "Remainder Not Set";
+                else
+                {
+                    NotesModel note = new NotesModel() { UserId = userId, Remainder = remainder };
+                    this.UserContext.Notes.Add(note);
+                    this.UserContext.SaveChanges();
+                    return "Remainder Set";
+                }
             }
             catch (ArgumentNullException ex)
             {
@@ -504,15 +510,14 @@ namespace Repository.Repository
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <param name="image">IFormFile image</param>
+        /// <param name="userId">integer userId</param>
         /// <returns>returns string after successfully adding image</returns>
-        public string AddImage(int notesId, IFormFile image)
+        public string AddImage(int notesId, IFormFile image, int userId)
         {
             try
             {
                 var exist = this.UserContext.Notes.Find(notesId);
-                if (exist != null)
-                {
-                    Account account = new Account(
+                Account account = new Account(
                         this.Configuration["CloudinaryAccount:CloudName"],
                         this.Configuration["CloudinaryAccount:APIKey"],
                         this.Configuration["CloudinaryAccount:APISecret"]);
@@ -523,13 +528,24 @@ namespace Repository.Repository
                     };
                     var uploadResult = cloudinary.Upload(uploadFile);
                     var uploadedImage = uploadResult.Url.ToString();
+                if (exist != null)
+                { 
                     exist.Image = uploadedImage;
                     this.UserContext.Notes.Update(exist);
                     this.UserContext.SaveChanges();
                     return "Image added";
                 }
-
-                return "Not Notes Present";
+                else
+                {
+                    NotesModel notes = new NotesModel()
+                    {
+                        UserId = userId,
+                        Image = uploadedImage
+                    };
+                    this.UserContext.Notes.Add(notes);
+                    this.UserContext.SaveChanges();
+                    return "Image added";
+                }
             }
             catch (ArgumentNullException ex)
             {

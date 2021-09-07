@@ -44,26 +44,20 @@ namespace Repository.Repository
             {
                 string message = string.Empty;
                 var emailExists = this.UserContext.Users.Where(x => x.EmailId == collaborator.ColEmail).SingleOrDefault();
-                if (emailExists != null)
+
+                var owner = (from user in this.UserContext.Users
+                             join notes in this.UserContext.Notes
+                             on user.UserId equals notes.UserId
+                             where notes.NotesId == collaborator.NotesId && user.EmailId == collaborator.ColEmail
+                             select new { userId = user.UserId }).SingleOrDefault();
+                if (owner == null)
                 {
-                    var owner = (from user in this.UserContext.Users
-                                 join notes in this.UserContext.Notes
-                                 on user.UserId equals notes.UserId
-                                 where notes.NotesId == collaborator.NotesId && user.EmailId == collaborator.ColEmail
-                                 select new { userId = user.UserId }).SingleOrDefault();
-                    if (owner == null)
+                    var colExists = this.UserContext.Collaborators.Where(x => x.ColEmail == collaborator.ColEmail && x.NotesId == collaborator.NotesId).SingleOrDefault();
+                    if (colExists == null)
                     {
-                        var colExists = this.UserContext.Collaborators.Where(x => x.ColEmail == collaborator.ColEmail && x.NotesId == collaborator.NotesId).SingleOrDefault();
-                        if (colExists == null)
-                        {
-                            this.UserContext.Add(collaborator);
-                            this.UserContext.SaveChanges();
-                            message = "Collaborator Added!";
-                        }
-                        else
-                        {
-                            message = "This email already exists";
-                        }
+                        this.UserContext.Add(collaborator);
+                        this.UserContext.SaveChanges();
+                        message = "Collaborator Added!";
                     }
                     else
                     {
@@ -72,11 +66,11 @@ namespace Repository.Repository
                 }
                 else
                 {
-                    message = "Invalid Email";
+                    message = "This email already exists";
                 }
 
                 return message;
-            }
+        }
             catch (ArgumentNullException ex)
             {
                 throw new Exception(ex.Message);
