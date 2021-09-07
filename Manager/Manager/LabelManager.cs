@@ -125,11 +125,11 @@ namespace Manager.Manager
         /// </summary>
         /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a string after deleting a label from note</returns>
-        public string DeleteALabelFromNote(LabelModel labelModel)
+        public string DeleteALabelFromNote(int labelId)
         {
             try
             {
-                return this.LabelRepository.DeleteALabelFromNote(labelModel);
+                return this.LabelRepository.DeleteALabelFromNote(labelId);
             }
             catch (Exception ex)
             {

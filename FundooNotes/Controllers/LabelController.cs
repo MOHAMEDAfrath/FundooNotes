@@ -167,11 +167,11 @@ namespace FundooNotes.Controllers
         /// <returns>returns a string after deleting a label from note</returns>
         [HttpPost]
         [Route("api/DeleteaLabelFromNote")]
-        public IActionResult DeleteaLabelFromNote([FromBody] LabelModel labelModel)
+        public IActionResult DeleteaLabelFromNote(int labelId)
         {
             try
             {
-                string result = this.LabelManager.DeleteALabelFromNote(labelModel);
+                string result = this.LabelManager.DeleteALabelFromNote(labelId);
                 if (result == "Deleted Label From Note")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });

@@ -58,7 +58,7 @@ namespace Repository.Interface
         /// </summary>
         /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a string after deleting a label from note</returns>
-        string DeleteALabelFromNote(LabelModel labelModel);
+        string DeleteALabelFromNote(int labelId);
 
         /// <summary>
         /// Get Label By Notes
