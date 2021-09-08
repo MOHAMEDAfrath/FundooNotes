@@ -95,25 +95,29 @@ namespace Repository.Repository
         {
             try
             {
+                string message = "Label not present";
                 var exist = this.UserContext.Labels.Where(x => x.LabelName == labelName && x.UserId == userId).ToList();
-                var labelExists = this.UserContext.Labels.Where(x => x.LabelName == newLabelName && x.UserId == userId).ToList();
+                var labelExists = this.UserContext.Labels.Where(x => x.LabelName == newLabelName && x.UserId == userId && x.NotesId == null).SingleOrDefault();
                 if (exist.Count > 0)
                 {
+                    message = "Updated Label";
+                    if (labelExists != null)
+                    {
+                        this.UserContext.Labels.Remove(labelExists);
+                        this.UserContext.SaveChanges();
+                        message =  "Merge the '" + labelName + "' label with the '"
+                           + newLabelName + "' label? All notes labeled with '" + labelName
+                           + "' will be labeled with '" + newLabelName + "', and the '" + labelName +
+                           "' label will be deleted.";
+                    }
+
                     exist.ForEach(x => x.LabelName = newLabelName);
                     this.UserContext.Labels.UpdateRange(exist);
                     this.UserContext.SaveChanges();
-                    if (labelExists.Count > 0)
-                    {
-                        return "Merge the '" + labelName + "' label with the '" 
-                            + newLabelName + "' label? All notes labeled with '" + labelName 
-                            + "' will be labeled with '" + newLabelName + "', and the '" + labelName +
-                            "' label will be deleted.";
-                    }
-
-                    return "Updated Label";
+                    
                 }
 
-                return "Label not present";
+                return message;
             }
             catch (ArgumentNullException ex)
             {
@@ -156,13 +160,11 @@ namespace Repository.Repository
                 var exists = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && labelModel.NotesId == x.NotesId).SingleOrDefault();
                 if (exists == null)
                 {
-                    int temp = Convert.ToInt32(labelModel.NotesId);
-                    labelModel.NotesId = null;
-                    this.AddLabel(labelModel);
-                    labelModel.LabelId = 0;
-                    labelModel.NotesId = temp;
                     this.UserContext.Labels.Add(labelModel);
                     this.UserContext.SaveChanges();
+                    labelModel.LabelId = 0;                 
+                    labelModel.NotesId = null;
+                    this.AddLabel(labelModel);
                     return "Added Label To Note";
                 }
 

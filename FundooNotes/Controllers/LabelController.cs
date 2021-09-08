@@ -154,7 +154,7 @@ namespace FundooNotes.Controllers
                     return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = result });
                 }
 
-                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = result });
+                return this.BadRequest(new ResponseModel<string>() { Status = false, Message = "Add Failed" });
             }
             catch (Exception ex)
             {
