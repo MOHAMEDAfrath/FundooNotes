@@ -25,7 +25,8 @@ namespace FundooNotes
     using global::Repository.Context;
     using global::Repository.Interface;
     using global::Repository.Repository;
-    
+    using System;
+
     /// <summary>
     /// class start up starts first when the application starts
     /// </summary>
@@ -52,6 +53,9 @@ namespace FundooNotes
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);   
+            });
             services.AddDbContextPool<UserContext>(
                 options => options.UseSqlServer(this.Configuration.GetConnectionString("UserDbConnection")));
             services.AddTransient<IUserRepository, UserRepository>();
@@ -130,6 +134,8 @@ namespace FundooNotes
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

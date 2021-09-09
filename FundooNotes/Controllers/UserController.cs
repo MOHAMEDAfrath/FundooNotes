@@ -14,6 +14,7 @@ namespace FundooNotes.Controllers
     using Microsoft.Extensions.Logging;
     using global::Models;
     using StackExchange.Redis;
+    using Microsoft.AspNetCore.Http;
 
     /// <summary>
     /// User controller class for login,register,forgot password
@@ -58,7 +59,9 @@ namespace FundooNotes.Controllers
                 if (result == "Registration Successfull !")
                 {
                     this.logger.LogInformation(userData.FirstName + " " + userData.LastName + " " + result);
-                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
+                    HttpContext.Session.SetString("User Name", userData.FirstName + " " + userData.LastName);
+                    HttpContext.Session.SetString("User Email", userData.EmailId);
+                    return this.Ok(new ResponseModel<string>() { Status = true, Message = result, Data = HttpContext.Session.GetString("User Name") +" "+HttpContext.Session.GetString("User Email") });
                 }
                 else
                 {

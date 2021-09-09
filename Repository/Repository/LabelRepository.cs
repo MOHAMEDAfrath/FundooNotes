@@ -87,34 +87,32 @@ namespace Repository.Repository
         /// <summary>
         /// Edit label name
         /// </summary>
-        /// <param name="userId">integer userId</param>
-        /// <param name="labelName">string labelName</param>
-        /// <param name="newLabelName">string newLabelName</param>
+        /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a string after editing label</returns>
-        public string EditLabel(int userId, string labelName, string newLabelName)
+        public string EditLabel(LabelModel labelModel)
         {
             try
             {
                 string message = "Label not present";
-                var exist = this.UserContext.Labels.Where(x => x.LabelName == labelName && x.UserId == userId).ToList();
-                var labelExists = this.UserContext.Labels.Where(x => x.LabelName == newLabelName && x.UserId == userId && x.NotesId == null).SingleOrDefault();
-                if (exist.Count > 0)
+                var exist = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId).Select(x=>x.LabelName).SingleOrDefault();
+                var existOldLabel = this.UserContext.Labels.Where(x => x.LabelName == exist && x.UserId == labelModel.UserId).ToList();
+                var labelExists = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).SingleOrDefault();
+                if (existOldLabel.Count > 0)
                 {
                     message = "Updated Label";
                     if (labelExists != null)
                     {
                         this.UserContext.Labels.Remove(labelExists);
                         this.UserContext.SaveChanges();
-                        message =  "Merge the '" + labelName + "' label with the '"
-                           + newLabelName + "' label? All notes labeled with '" + labelName
-                           + "' will be labeled with '" + newLabelName + "', and the '" + labelName +
+                        message = "Merge the '" + exist + "' label with the '"
+                           + labelModel.LabelName + "' label? All notes labeled with '" + exist
+                           + "' will be labeled with '" + labelModel.LabelName + "', and the '" + exist +
                            "' label will be deleted.";
                     }
 
-                    exist.ForEach(x => x.LabelName = newLabelName);
-                    this.UserContext.Labels.UpdateRange(exist);
-                    this.UserContext.SaveChanges();
-                    
+                    existOldLabel.ForEach(x => x.LabelName = labelModel.LabelName);
+                    this.UserContext.Labels.UpdateRange(existOldLabel);
+                    this.UserContext.SaveChanges();   
                 }
 
                 return message;

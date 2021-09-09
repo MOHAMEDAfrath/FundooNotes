@@ -33,11 +33,9 @@ namespace Manager.Interface
         /// <summary>
         /// Edit label name
         /// </summary>
-        /// <param name="userId">integer userId</param>
-        /// <param name="labelName">string labelName</param>
-        /// <param name="newLabelName">string newLabelName</param>
+        /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a string after editing label</returns>
-        string EditLabel(int userId, string labelName, string newLabelName);
+        public string EditLabel(LabelModel labelModel);
 
         /// <summary>
         /// Gets Label Based on userId

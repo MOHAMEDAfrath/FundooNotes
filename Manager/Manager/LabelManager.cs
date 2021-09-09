@@ -70,15 +70,13 @@ namespace Manager.Manager
         /// <summary>
         /// Edit label name
         /// </summary>
-        /// <param name="userId">integer userId</param>
-        /// <param name="labelName">string labelName</param>
-        /// <param name="newLabelName">string newLabelName</param>
+        /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a string after editing label</returns>
-        public string EditLabel(int userId, string labelName, string newLabelName)
+        public string EditLabel(LabelModel labelModel)
         {
             try
             {
-                return this.LabelRepository.EditLabel(userId, labelName, newLabelName);
+                return this.LabelRepository.EditLabel(labelModel);
             }
             catch (Exception ex)
             {

@@ -88,17 +88,15 @@ namespace FundooNotes.Controllers
         /// <summary>
         /// Edit label name
         /// </summary>
-        /// <param name="userId">integer userId</param>
-        /// <param name="labelName">string labelName</param>
-        /// <param name="newLabelName">string newLabelName</param>
+        /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a IActionResult Status Code after editing label</returns>
         [HttpPut]
         [Route("api/editLabel")]
-        public IActionResult EditLabel(int userId, string labelName, string newLabelName)
+        public IActionResult EditLabel([FromBody] LabelModel labelModel)
         {
             try
             {
-                string result = this.LabelManager.EditLabel(userId, labelName, newLabelName);
+                string result = this.LabelManager.EditLabel(labelModel);
                 if (result != "Label not present")
                 {
                     return this.Ok(new ResponseModel<string>() { Status = true, Message = result });
