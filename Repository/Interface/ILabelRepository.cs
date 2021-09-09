@@ -63,7 +63,7 @@ namespace Repository.Interface
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <returns>returns a list of label by notes</returns>
-        List<string> GetLabelByNote(int notesId);
+        List<LabelModel> GetLabelByNote(int notesId);
 
         /// <summary>
         /// Display notes for a particular label

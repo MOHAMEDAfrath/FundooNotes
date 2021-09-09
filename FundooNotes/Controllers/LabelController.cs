@@ -199,7 +199,7 @@ namespace FundooNotes.Controllers
                 var result = this.LabelManager.GetLabelByNote(notesId);
                 if (result != null)
                 {
-                    return this.Ok(new ResponseModel<List<string>>() { Status = true, Message = "Retrieved Label", Data = result });
+                    return this.Ok(new ResponseModel<List<LabelModel>>() { Status = true, Message = "Retrieved Label", Data = result });
                 }
 
                 return this.BadRequest(new ResponseModel<List<string>>() { Status = false, Message = "Retrieved Label Failed" });

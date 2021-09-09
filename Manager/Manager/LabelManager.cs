@@ -140,7 +140,7 @@ namespace Manager.Manager
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <returns>returns a list of label by notes</returns>
-        public List<string> GetLabelByNote(int notesId)
+        public List<LabelModel> GetLabelByNote(int notesId)
         {
             try
             {

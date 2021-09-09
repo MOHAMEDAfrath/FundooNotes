@@ -204,11 +204,11 @@ namespace Repository.Repository
         /// </summary>
         /// <param name="notesId">integer notesId</param>
         /// <returns>returns a list of label by notes</returns>
-        public List<string> GetLabelByNote(int notesId)
+        public List<LabelModel> GetLabelByNote(int notesId)
         {
             try
             {
-                var exists = this.UserContext.Labels.Where(x => x.NotesId == notesId).Select(x => x.LabelName).ToList();
+                var exists = this.UserContext.Labels.Where(x => x.NotesId == notesId).ToList();
                 if (exists.Count > 0)
                 {
                     return exists;
