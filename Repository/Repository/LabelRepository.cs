@@ -93,7 +93,7 @@ namespace Repository.Repository
         {
             try
             {
-                string message = "Label not present";
+                string message = "Label not present"; 
                 var exist = this.UserContext.Labels.Where(x => x.LabelId == labelModel.LabelId).Select(x=>x.LabelName).SingleOrDefault();
                 var existOldLabel = this.UserContext.Labels.Where(x => x.LabelName == exist && x.UserId == labelModel.UserId).ToList();
                 var labelExists = this.UserContext.Labels.Where(x => x.LabelName == labelModel.LabelName && x.UserId == labelModel.UserId && x.NotesId == null).SingleOrDefault();

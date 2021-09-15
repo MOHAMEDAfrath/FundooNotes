@@ -16,6 +16,7 @@ namespace Repository.Repository
     using Models;
     using global::Repository.Context;
     using global::Repository.Interface;
+    using System.Security.Claims;
 
     /// <summary>
     /// class NotesRepository

@@ -40,7 +40,7 @@ namespace FundooNotes.Controllers
         /// <param name="label">LabelModel label</param>
         /// <returns>returns IActionResult Status Code after successfully adding label without notesId</returns>
         [HttpPost]
-        [Route("api/addLabel")]
+        [Route("api/Label")]
         public IActionResult AddLabel([FromBody] LabelModel label)
         {
             try
@@ -66,7 +66,7 @@ namespace FundooNotes.Controllers
         /// <param name="labelName">string labelName</param>
         /// <returns>returns a IActionResult Status Code after deleting from home</returns>
         [HttpDelete]
-        [Route("api/DeleteMainLabel")]
+        [Route("api/MainLabel")]
         public IActionResult DeleteLabel(int userId, string labelName)
         {
             try
@@ -91,7 +91,7 @@ namespace FundooNotes.Controllers
         /// <param name="labelModel">LabelModel labelModel</param>
         /// <returns>returns a IActionResult Status Code after editing label</returns>
         [HttpPut]
-        [Route("api/editLabel")]
+        [Route("api/Label")]
         public IActionResult EditLabel([FromBody] LabelModel labelModel)
         {
             try
@@ -115,8 +115,8 @@ namespace FundooNotes.Controllers
         /// </summary>
         /// <param name="userId">integer userId</param>
         /// <returns>returns a IActionResult Status Code for getting labels based on userID</returns>
-        [HttpPost]
-        [Route("api/GetLabel")]
+        [HttpGet]
+        [Route("api/Label")]
         public IActionResult GetLabel(int userId)
         {
             try
